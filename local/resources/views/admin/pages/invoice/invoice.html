@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset='UTF-8'>
+	
+	<title>Invoice</title>
+	
+	<link rel='stylesheet' type="text/css" href='invoice.css'>
+	
+
+</head>
+
+<body>
+
+	<div class="invoice-box">
+<table cellpadding="0" cellspacing="0">
+<tr class="top">
+<td colspan="2">
+<table>
+ @foreach($orders as $order)
+<tr>
+<td class="title">
+<img src="/images/logo.png" style="width:100%; max-width:300px;">
+</td>
+<td>
+
+فاتورة رقم #:    {{str_random(40)}}      <br>
+تم انشاؤها: <br> {{$order->date}}
+صالحة الى: {{  "30 days" +  (order->date) strtotime$}}
+</td>strtotime($Date. ' + 1 days')
+</tr>
+</table>
+</td>
+</tr>
+<tr class="information">
+<td colspan="2">
+<table>
+<tr>
+<td>
+
+ 
+
+شركة سهيل للأدوات الصحية <br>
+عنوان الشركة<br>
+
+</td>
+<td>
+اسم التاجر
+{{ $order->trader_name }}<br>
+العنوان
+{{ $order->address }}<br>
+التليفون
+{{ $order->phone }}<br>
+المندوب المرسل
+{{ $order->delegate_sender }}<br>
+السباك
+{{ $order->plumper }}<br>
+التاريخ
+{{ $order->date }}
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="heading">
+<td>
+المنتج
+</td>
+<td>
+السعر
+</td>
+</tr>
+@endforeach
+@foreach($goods as $good) 
+<tr class="item">
+<td>
+{{ $good->name }}
+</td>
+<td>
+{{ $good->price }}
+</td>
+</tr>
+<tr class="total">
+<td></td>
+<td>
+الاجمالى: 
+{{ $total; $total+=price }}
+</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

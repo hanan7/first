@@ -1,0 +1,56 @@
+
+/*Media query*/
+@media(min-width : 768px) and (max-width : 991px){
+    .main-header .page-header .call-us{
+        margin: 5px 5px;
+    }
+    .main-header .page-header .call-us ul li{
+    float: left;
+    display: inline-block;
+    font-family: karla;
+    font-weight: bold;
+    padding: 10px 1px;
+    vertical-align: top;
+    position: relative;
+}
+.main-header .page-header .call-us ul li a{
+    font-size: 1.2em;
+    color: #A85879;
+}
+.main-header .page-header .call-us ul li a:hover{
+    text-decoration: none;
+}
+.main-header .page-header .call-us ul li:first-child{
+    margin-left: 10px; 
+}
+.main-header .page-header .call-us ul li:first-child:after {
+    content: "";
+    background: #d5dce4;
+    display: block;
+    position: absolute;
+    right: -10px;
+    top: 5px;
+    width: 1px;
+    height: 50px;
+}
+.main-header .page-header .call-us ul li:last-child {
+	padding: 10px 20px !important;
+}
+.main-header .page-header .call-us .transport{
+    text-align:right ;
+    font-size: 1.2em;
+}
+}
+@media (max-width : 767px){
+    .container > .navbar-header,
+    .container-fluid > .navbar-header,
+    .container > .navbar-collapse,
+    .container-fluid > .navbar-collapse{
+	margin-right: 0;
+    }
+}
+
+@media (min-width : 0px) and (max-width: 433px){
+   .main-header .page-header h1 {
+    margin: 10px 0 0;
+    font-size: 3.5em;

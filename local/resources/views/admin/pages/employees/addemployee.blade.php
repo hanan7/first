@@ -6,7 +6,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">اضافة موظف</h4>
+         <h4 class="modal-title bold">اضافة موظف</h4>
       </div>
         
           <form method="post" name="productform" action="{{url('employees/add')}}" class="horizontal-form">
@@ -23,7 +23,7 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">اسم الموظف</label>
-                                        <input type="text" id="name" name="name" class="form-control " >
+                                        <input type="text" id="name" name="name" class="form-control "required
                                       </div>
                                     </div>
                                 </div>  

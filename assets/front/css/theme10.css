@@ -1,0 +1,49 @@
+/****Defult Theme for ÔÑßÉ Óåá****/
+.color-box .colors ,
+.contact-us .over .btn-all
+{
+    border: 2px solid #0f997e;
+}
+.contact-us .over .btn-all ,
+.our-services .servic .service-box .btn ,
+.our-services .servic .service-box:hover .first-child ,
+.about .btn ,
+.our-services .servic .btn-all{
+    border: 1px solid #0f997e;
+}
+.color-box .gear-check  {
+    background-color: #0f997e;
+    border: 1px solid #0f997e;
+}
+.main-header .page-header h1 a ,
+.main-header .page-header .call-us ul li a ,
+.carousel-caption h1,
+.about h2,
+.our-services .servic h2 ,
+.our-services .servic .service-box h3 ,
+.our-services .servic .service-box .first-child ,
+.agents h2 ,
+.contact-us .over h2,
+.contact-us .over .fa 
+{
+   color: #0f997e;
+}
+.navbar{
+    border-bottom: 1px solid #0f997e;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus ,
+.about h2:after ,
+.our-services .servic h2:after ,
+.about .btn:hover ,
+.our-services .servic .service-box .btn:hover ,
+.our-services .servic .btn-all ,
+.agents h2:after ,
+.contact-us .over .btn-all ,
+.our-services .servic .btn-all:hover ,
+.contact-us .over h2:after ,
+#scroll-top:hover{
+    background-color: #0f997e;
+}
+/*****End Defult Theme****/

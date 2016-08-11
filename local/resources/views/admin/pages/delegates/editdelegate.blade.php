@@ -1,7 +1,7 @@
 @extends("admin/master")
 
 @section("title")
-المندوبين
+الوكيل 
 @endsection
 @section("styles")
 <link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
@@ -10,18 +10,18 @@
             
 @endsection
 @section("content-title")
- <h3 class="page-title">المندوبين</h3>  
+ <h3 class="page-title">الوكيل </h3>  
 @endsection
 
 @section("content-navigat")
 <ul class="page-breadcrumb">
   <li>
     <i class="icon-home"></i>
-    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="{{url('/admin')}}">الصفحة الرئيسية</a>
     <i class="fa fa-angle-left"></i>
   </li>
   <li>
-   <a href="#">المندوبين</a>
+   <a href="#">الوكيل </a>
 
 
  </li>
@@ -30,6 +30,28 @@
 @endsection
                 
 @section('content')
+
+@if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
+    <div class="alert alert-success alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
+    <div class="alert alert-warrning alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ 
   <div class="row">
     <div class="col-md-12">
       <div class="tabbable tabbable-custom tabbable-noborder tabbable-reversed">
@@ -37,7 +59,7 @@
                     <div class="portlet-title">
                       <div class="caption">
                         <i class="icon-pencil"></i>
-                           تعديل مندوب
+                           تعديل وكيل 
                       </div>
                     </div>
 
@@ -46,11 +68,11 @@
                            <input type="hidden"  name="_token" value="{{ csrf_token() }}">
                             
                             <div class="form-body">
-                              <h3 class="form-section">تعديل مندوب</h3>
+                              <h3 class="form-section">تعديل وكيل </h3>
                                 <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">كود المندوب</label>
+                                        <label class="control-label">كود الوكيل </label>
                                         <input type="text" id="code" name="code" class="form-control" 
                                         value="{{$old->code}}">
                                       </div>
@@ -58,7 +80,7 @@
                                 
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">اسم المندوب</label>
+                                        <label class="control-label">اسم الوكيل </label>
                                         <input type="text" id="name" name="name" class="form-control"
                                         value="{{$old->name}}">
                                       </div>
@@ -110,10 +132,10 @@
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">نوع المندوب</label>
+                                        <label class="control-label">نوع الوكيل </label>
                                         <select class="form-control" name="type">
-                                        <option value="مندوب تسليم"> مندوب تسليم </option>
-                                        <option value="مندوب مبيعات"> مندوب مبيعات </option>
+                                        <option value="وكيل  تسليم"> وكيل  تسليم </option>
+                                        <option value="وكيل  مبيعات"> وكيل  مبيعات </option>
                                         </select>
                                       </div>
                                     </div>
@@ -149,15 +171,41 @@
                                         <input type="text" id="properties" name="properties" class="form-control" placeholder="اشياء اخرى" value="{{$old->properties}}">
                                       </div>
                                     </div>
-                                </div>  
+                                </div>
+
+                               <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="control-label">نقاط رئسية</label>
+                                         <input type="text" id="properties" 
+                                         name="main_point"
+                                         value="{{$old->main_point}}"
+                                          class="form-control" placeholder="" >
+                                       
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                      <div class="form-group">
+                                        <label class="control-label">نقاط فرعية</label>
+                                         <input type="text" 
+                                         id="properties" name="plus_point"
+                                         value="{{$old->plus_point}}"
+                                          class="form-control" placeholder="" >
+                                       
+                                      </div>
+                                      
+                                    </div>
+                                </div>     
+                                 
                               
                             </div>  
                           <div class="form-actions">
                             <div class="col-md-12 text-center" >
                               <button type="submit"  name="submit" class="btn green btn_save">
                               <i class="fa fa-pencil"></i> تعديل</button>
-                              <button type="button" class="btn default btn_save">
-                              <i class="fa fa-times"></i> الغاء</button> 
+                              <a href="{{url('delegates/all-delegates')}}" type="button" class="btn default btn_save">
+                              <i class="fa fa-times"></i> الغاء</a> 
                             </div>      
                           </div>
                         </form>

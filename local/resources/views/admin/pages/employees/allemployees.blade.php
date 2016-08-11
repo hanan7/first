@@ -17,7 +17,7 @@
 <ul class="page-breadcrumb">
   <li>
     <i class="icon-home"></i>
-    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="{{url('/admin')}}">الصفحة الرئيسية</a>
     <i class="fa fa-angle-left"></i>
   </li>
   <li>
@@ -42,21 +42,29 @@
             </ul>
         </div>
  @endif
+ 
  @if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
-  @if(session()->has('danger'))
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
+ @endif
 
+ 
   	<div class="portlet box blue ">
     <div class="portlet-title">
         <div class="caption">
@@ -72,27 +80,7 @@
                 </a>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="btn-group pull-right">
-                  <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">الادوات
-                    <i class="fa fa-angle-down"></i>
-                  </button>
-                  <ul class="dropdown-menu pull-right">
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-print"></i> طباعه  </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-pdf-o"></i> حفظ ك  PDF </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-excel-o"></i> تصدير الى  Excel </a>
-                    </li>
-                  </ul>
-              </div>
-            </div>
+          
           </div>
         </div>  
 
@@ -129,9 +117,11 @@
                       <a href="{{URL('employees/'.'edit/'.$emp->id)}}"  class="btn green btnedit" data-original="">
                         <li class="fa fa-pencil"> تعديل</li>
                       </a>
-                      <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
+                      @if(Auth::guard('admins')->user()->flag==0)
+                      <a data-url="{{URL('employees/'.'delete/'.$emp->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
+                      @endif
                     </td>
               </tr>
               @endforeach 
@@ -142,32 +132,7 @@
 </div>
 
 <!-- Modal -->
-<div id="deletemodal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-    
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">مسح عنصر</h4>
-      </div>
-      <div class="modal-body">
-        <p>هل تريد تأكيد عملية المسح ؟</p>
-      </div>
-      <div class="modal-footer">
-
-        <a href="{{URL('employees/'.'delete/'.$emp->id)}}" id="delete" class="btn btn red"><li class="fa fa-trash"></li> مسح</a>
-     
-        <button type="button" class="btn btn dafault" data-dismiss="modal"><li class="fa fa-times"></li> الغاء</button>
-    
-      </div>
-      </form>
-    </div>
-
-  </div>
-</div
 @endsection
 
 @section("layoutscripts")

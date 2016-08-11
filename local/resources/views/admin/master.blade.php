@@ -14,6 +14,9 @@
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+
+        <link href="{{asset('assets/admin/font.css')}}" rel="stylesheet" type="text/css" />
+
         <link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />  
         <link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/admin/global/plugins/simple-line-icons/simple-line-icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -29,6 +32,7 @@
         <link href="{{asset('assets/admin/layouts/layout2/css/layout-rtl.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/admin/layouts/layout2/css/themes/blue-rtl.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{asset('assets/admin/layouts/layout2/css/custom-rtl.min.css')}}" rel="stylesheet" type="text/css" />
+       
         @yield('styles')
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /><style type="text/css">
@@ -98,51 +102,102 @@
         <script src="{{asset('assets/admin/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/global/plugins/uniform/jquery.uniform.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
-        <!-- END CORE PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
-     @yield('layoutscripts')
-        <!-- END THEME GLOBAL SCRIPTS -->
-        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        @yield('layoutscripts')
+            <script src="{{asset('assets/admin/global/scripts/app.min.js')}}"
+            type="text/javascript"></script>
+        @yield('levelscripts')
+        <!-- END THEME LAYOUT SCRIPTS -->
         <script src="{{asset('assets/admin/layouts/layout2/scripts/layout.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/layouts/layout2/scripts/demo.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
-        @yield('levelscripts')
-        <!-- END THEME LAYOUT SCRIPTS -->
-        <script type="text/javascript">
-    $(document).ready(function() {
-        var d = window.location.href;
-        var menucoun = 1;
-        $('ul li').each(function() {
-            var t = $(this);
-            var x = t.find('a').attr('href');
-           
-           /* if (x == d && $(this).attr('class') == 'start') {
-                $('.active').removeClass('active');
-                $(this).addClass('active');
-                return false;
-            }*/
-			
-			
-            if (x==d || x!="" && (d.indexOf(x+"/edit") > -1 || d.indexOf(x+"/create") > -1)) {
-            	
-            	if(!$(this).parent("ul").hasClass('sub-menu')){
-            		
-            		 $(this).addClass('active open');
-            		 $(this).find('a').append('<span class="selected"></span>');
-            		 return false;
-            	}else{
-            		 $(this).parent('ul').parent('li').addClass('active open');
-                    $(this).parent('ul').parent('li').children('a').children('span.arrow').addClass('open');
-                     $(this).parent('ul').parent('li').find('a').append('<span class="selected"></span>');
-                    return false;
-            	}
-               
-                
-            }
-        });
-    });
-</script>
+         <script src="{{asset('assets/admin/global/ajax.js')}}" type="text/javascript"></script>
 
-    </body>
+    <!-- Modal-Template -->
+
+    <!-- Modal -->
+<div id="delete-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+   
+
+  </div>
+</div>
+    <script id="template-modal" >
+        <div class = "modal-content" >
+            <input type = "hidden" name = "_token" value = "yChh9sHdDjhsC7yDYTBKOlqqCkBdlpAHH06F4oYm" >
+            <div class = "modal-header" >
+                <button type = "button" class = "close" data - dismiss = "modal" > & times; </button>
+                <h4 class = "modal-title bold" > مسح عنصر </h4>
+            </div>
+            <div class = "modal-body" >
+                <p > هل تريد تأكيد عملية المسح ؟ </p>
+            </div>
+            <div class = "modal-footer" >
+                <a
+                href = "{url}"
+                id = "delete" class = "btn btn red" >
+                <li class = "fa fa-trash" > </li> مسح
+                </a>
+
+                <button type = "button" class = "btn btn dafault" data-dismiss = "modal" >
+                <li class = "fa fa-times" > </li> الغاء</button >
+            </div>
+        </div>
+    </script>
+
+    <!-- End Modal-Template -->
+
+    <script type="text/javascript">
+                $(document).ready(function() {
+        var d = window.location.href;
+                var menucoun = 1;
+                $('ul li').each(function() {
+        var t = $(this);
+                var x = t.find('a').attr('href');
+                /* if (x == d && $(this).attr('class') == 'start') {
+                 $('.active').removeClass('active');
+                 $(this).addClass('active');
+                 return false;
+                 }*/
+
+
+                if (x == d || x != "" && (d.indexOf(x + "/edit") > - 1 || d.indexOf(x + "/create") > - 1)) {
+
+        if (!$(this).parent("ul").hasClass('sub-menu')){
+
+        $(this).addClass('active open');
+                $(this).find('a').append('<span class="selected"></span>');
+                return false;
+        } else{
+        $(this).parent('ul').parent('li').addClass('active open');
+                $(this).parent('ul').parent('li').children('a').children('span.arrow').addClass('open');
+                $(this).parent('ul').parent('li').find('a').append('<span class="selected"></span>');
+                return false;
+        }
+
+
+        }
+        });
+                //delete model
+                $('.btndelet').click(function(e){
+                var txt = $('#template-modal').html();
+                var url = $(this).attr('data-url');
+                txt = txt.replace(new RegExp('{url}', 'g'), url);
+                $('#delete-modal .modal-dialog').html(txt);
+                $('#delete-modal').modal('show');
+        e.preventDefault()
+        })
+
+        });
+
+
+    </script>
+
+
+
+</body>
+
 
 </html>

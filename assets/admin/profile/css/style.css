@@ -1,0 +1,59 @@
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+.profile {
+    background-color: #EEE;
+    
+}
+.card {
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+    background-color: #FFFFFF;
+    margin-bottom: 30px;
+    position: relative;
+    display: none;
+    width: 700px;
+    margin: auto;
+
+}
+.card-header{
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding-top: 20px;
+    display: none;
+}
+.card-header h3{
+    font-weight: bold;
+    
+}
+.card-header p{
+    font-size: 20px;
+    font-weight: 700;
+}
+.card .card-header a{
+    margin: 5px;
+    color: dodgerblue;
+}
+.card .card-header a:hover{
+    color: forestgreen;
+    text-decoration: none;
+}
+.data{
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+   
+}
+.data ul  {
+ padding-bottom: 15px; 
+}
+.data ul li{
+    padding: 15px;
+    margin: 5px;
+    background: #31708f;
+    color: #FFF;
+    font-size: 18px;
+    border-radius: 4px;
+    display: none;
+    
+}

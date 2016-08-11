@@ -42,21 +42,26 @@
             </ul>
         </div>
  @endif
- @if(session()->has('success'))
+ @if(session()->has('sucess'))
+ <?php $a=[];
+ $a = session()->pull('sucess');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
-  @if(session()->has('danger'))
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
-
+ @endif
 <div class="portlet box blue ">
     <div class="portlet-title">
         <div class="caption">
@@ -87,6 +92,7 @@
                 <th class="text-center"> نوع التوريد </th>
                 <th class="text-center"> المخازن المستلمة </th>
                 <th class="text-center"> الاصناف الموردة </th>
+                <th class="text-center"> الديون / المستحقات </th>
                 <th class="text-center"> العمليات </th>
 
               </tr>
@@ -94,6 +100,7 @@
              
             <tbody>
             @foreach($suppliers as $supplier)
+            
               <tr>
 		    
                     <td class="text-center"> {{ $supplier->code }}</td>                   
@@ -103,15 +110,19 @@
                     <td class="text-center"> {{ $supplier->type }} </td>
                     <td class="text-center"> {{ $supplier->recipient_stores }} </td>
                     <td class="text-center"> {{ $supplier->varieties }} </td>
+                    <td class="text-center"> {{ $supplier->debt }} </td>
                     <td class="text-center">
                       <a href="{{URL('suppliers/'.'edit/'.$supplier->id)}}"  class="btn green btnedit" data-original="">
                         <li class="fa fa-pencil"> تعديل</li>
                       </a>
-                      <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
+                      @if(Auth::guard('admins')->user()->flag==0)
+                        <a data-url="{{URL('suppliers/'.'delete/'.$supplier->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
+                      @endif
                     </td>
               </tr>
+              
             @endforeach 
             </tbody>
           </table>
@@ -120,32 +131,7 @@
 </div>
  @include('admin.pages.suppliers.addsupplier')
 <!-- Modal -->
-<div id="deletemodal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-    
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">مسح عنصر</h4>
-      </div>
-      <div class="modal-body">
-        <p>هل تريد تأكيد عملية المسح ؟</p>
-      </div>
-      <div class="modal-footer">
-
-        <a href="{{URL('suppliers/'.'delete/'.$supplier->id)}}" id="delete" class="btn btn red"><li class="fa fa-trash"></li> مسح</a>
-     
-        <button type="button" class="btn btn dafault" data-dismiss="modal"><li class="fa fa-times"></li> الغاء</button>
-    
-      </div>
-      </form>
-    </div>
-
-  </div>
-</div
 @endsection
 
 @section("layoutscripts")

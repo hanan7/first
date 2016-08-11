@@ -6,7 +6,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">اضافة مورد</h4>
+         <h4 class="modal-title bold">اضافة مورد</h4>
       </div>
         
           <form method="post" action="{{url('suppliers/add')}}" class=" horizontal-form" files="true">
@@ -23,7 +23,7 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">اسم المورد</label>
-                                        <input type="text" id="name" name="name" class="form-control " >
+                                        <input type="text" id="name" name="name" class="form-control " required>
                                       </div>
                                     </div>
                                 </div>  
@@ -59,7 +59,12 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">المخازن المستلمة</label>
-                                        <input type="text" id="recipient_stores" name="recipient_stores" class="form-control " >
+                                       
+                                        <select class="form-control" name="recipient_stores">
+                                        @foreach($stores as $store)
+                                          <option value="{{$store->name}}"> {{$store->name}} </option>
+                                        @endforeach  
+                                        </select>
                                       </div>
                                     </div>
                                 </div> 
@@ -71,7 +76,15 @@
                                         <textarea id="varieties" name="varieties" class="form-control "></textarea>
                                       </div>
                                     </div>
-                                </div>    
+                                </div>  
+                                <div class="row">
+                                    <div class="col-md-9">
+                                      <div class="form-group">
+                                        <label class="control-label">الديون / المستحقات</label>
+                                        <input  id="debt" name="debt" class="form-control">
+                                      </div>
+                                    </div>
+                                </div>  
                            
                 </div>
     

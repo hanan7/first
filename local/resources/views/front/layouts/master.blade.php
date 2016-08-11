@@ -1,61 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>شركة سهل للادوات الصحية</title>
-<link href="{{asset('assets/front/css/reset.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/front/css/grid.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/front/css/style.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/front/css/animate.css')}}" rel="stylesheet" type="text/css" />
-<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
-<script>
-    
-$(document).scroll(function(){  
-if ($(document).scrollTop() >= 550) {
-       $('header').css('background','#2C3E50');
-       $('header').css('transition','0.4s all ease-in-out');
-    }else{  
-       $('header').css('background','rgba(255,255,255,0)');
-    }
- 
-});  
-
-
-$(document).ready(function(){
-        $("#nav-mobile").html($("#nav-main").html());
-        $("#nav-trigger span").click(function(){
-            if ($("nav#nav-mobile ul").hasClass("expanded")) {
-                $("nav#nav-mobile ul.expanded").removeClass("expanded").slideUp(250);
-                $(this).removeClass("open");
-            } else {
-                $("nav#nav-mobile ul").addClass("expanded").slideDown(250);
-                $(this).addClass("open");
-            }
-        });
-    });
-    
-
-    $(function() {
-      $('a[href*=#]:not([href=#])').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-          if (target.length) {
-            $('html,body').animate({
-              scrollTop: target.offset().top
-            }, 1000);
-            return false;
-          }
-        }
-      });
-    });
-</script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>شركة سهل للأدوات الصحية</title>
+    <link rel='stylesheet' href="{{asset('assets/front/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/front/css/bootstrap-rtl.css')}}" />
+    <link rel='stylesheet' href="{{asset('assets/front/css/font-awesome.min.css')}}"/>
+    <link rel='stylesheet' href="{{asset('assets/front/css/style.css')}}"/>
+    <link rel='stylesheet' href="{{asset('assets/front/css/media.css')}}"/>
+    <link rel='stylesheet' href="{{asset('assets/front/css/defult-theme.css')}}"/>
+    <link rel='stylesheet' href="{{asset('assets/front/css/animate.css')}}"/>
+    <!--<link href='https://fonts.googleapis.com/css?family=Amiri:400,700&subset=arabic,latin' rel='stylesheet'>-->
+    <!--<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic' >-->
 
 </head>
+    
 <body>
-<!-- Start Header -->
+ @if(Session::has('info'))
+    <script>alert("تم ارسال الرسالة بنجاح")</script>
+    @endif
+  <!--Start Color Box-->
+  <section class="color-box hidden-xs">
+    <div class="colors">
+        <div class="color-head">
+            <h4>Color Option</h4>
+        </div>
+         <ul class="list-unstyled">
+            <li data-value="css/defult-theme.css"></li>
+            <li data-value="css/theme1.css"></li>
+            <li data-value="css/theme2.css"></li>
+            <li data-value="css/theme3.css"></li>
+            <li data-value="css/theme4.css"></li>
+            <li data-value="css/theme5.css"></li>
+            <li data-value="css/theme6.css"></li>
+            <li data-value="css/theme7.css"></li>
+            <li data-value="css/theme8.css"></li>
+            <li data-value="css/theme9.css"></li>
+            <li data-value="css/theme10.css"></li>
+        </ul>
+    </div>
+    <div class="gear-check">
+            <i class="fa fa-spin fa-cog fa-2x"></i>
+    </div>
+  </section>
+  <!-- Start Header -->
 @include('front.layouts.header')
 <!-- End Header -->
 <div class="clear"></div>
@@ -67,25 +56,34 @@ $(document).ready(function(){
 <!-- Start Footer -->
 @include('front.layouts.footer')
 <!-- End Footer -->
-   
- <script>
-  $(".slide > div:gt(0)").hide();
 
-  setInterval(function() { 
-  $('.slide > div:first')
-    .fadeOut(1000)
-    .next()
-    .fadeIn(1000)
-    .end()
-    .appendTo('.slide');
-  },  3000);
-
-
-  new WOW().init();
-
-
-
-</script>
+ <div id="scroll-top">
+         <i class="fa fa-chevron-up fa-2x"></i>
+    </div>
+    <!-- LOADING PAGE-->
+            <section class="load-page">
+                <div class="sk-circle">
+                    <div class="sk-circle1 sk-child"></div>
+                    <div class="sk-circle2 sk-child"></div>
+                    <div class="sk-circle3 sk-child"></div>
+                    <div class="sk-circle4 sk-child"></div>
+                    <div class="sk-circle5 sk-child"></div>
+                    <div class="sk-circle6 sk-child"></div>
+                    <div class="sk-circle7 sk-child"></div>
+                    <div class="sk-circle8 sk-child"></div>
+                    <div class="sk-circle9 sk-child"></div>
+                    <div class="sk-circle10 sk-child"></div>
+                    <div class="sk-circle11 sk-child"></div>
+                    <div class="sk-circle12 sk-child"></div>
+                </div>
+            </section>
+    
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+     <script src="{{asset('assets/front/js/jquery-1.12.1.min.js')}}"></script>
+     <script src="{{asset('assets/front/js/bootstrap.min.js')}}"></script>
+     <script src="{{asset('assets/front/js/plugins.js')}}"></script>
+     <script src="{{asset('assets/front/js/wow.min.js')}}"></script>
+     <script>new WOW().init();</script>
+     <script src="{{asset('assets/front/js/jquery.nicescroll.js')}}"></script>
 </body>
-
-</html>     
+</html>

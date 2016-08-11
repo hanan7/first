@@ -17,7 +17,7 @@
 <ul class="page-breadcrumb">
   <li>
     <i class="icon-home"></i>
-    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="{{url('/admin')}}">الصفحة الرئيسية</a>
     <i class="fa fa-angle-left"></i>
   </li>
   <li>
@@ -28,8 +28,31 @@
                          
 </ul>
 @endsection
-                
+   
+
+
 @section('content')
+@if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
+    <div class="alert alert-success alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
+    <div class="alert alert-warrning alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ 
   <div class="row">
     <div class="col-md-12">
       <div class="tabbable tabbable-custom tabbable-noborder tabbable-reversed">
@@ -50,39 +73,20 @@
                                   <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">اسم التاجر</label>
-                                        <input type="text" id="trader_name" name="trader_name" class="form-control" 
-                                        value="{{$old->trader_name}}"> 
+                                        <label class="control-label">كود الصنف</label>
+                                        <input type="text" id="code" name="code" class="form-control" 
+                                        value="{{$old->code}}"> 
                                       </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="control-label">رقم التليفون</label>
-                                        <input type="number" id="phone" name="phone" class="form-control" 
-                                        value="{{$old->phone}}"> 
-                                      </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="control-label">العنوان</label>
-                                        <input type="text" id="address" name="address" class="form-control" 
-                                        value="{{$old->address}}"> 
-                                      </div>
-                                    </div>
-                                </div>
+                               
 
                                   <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">اسم الصنف</label>
-                                        <input type="text" id="goods" name="goods" value="{{$old->goods}}"
-                                          class="form-control " >
+                                        <input type="text" id="name" name="name" class="form-control " value="{{$old->name}}">
                                       </div>
                                     </div>
                                 </div>
@@ -97,48 +101,14 @@
                                     </div>
                                 </div> 
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="control-label">المندوب المرسل</label>
-                                         <select class="form-control" name="delegate_sender">
-                                        @foreach($delegates as $dele)
-                                          <option value="{{$dele->name}}">{{$dele->name}}</option>
-                                        @endforeach  
-                                        </select>
-                                      </div>
-                                    </div>
-                                </div> 
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="control-label">السباك المرسل</label>
-                                        <select class="form-control" name="plumber_sender">
-                                        @foreach($plumbers as $plum)
-                                          <option value="{{$plum->name}}">{{$plum->name}}</option>
-                                        @endforeach  
-                                        </select>
-                                      </div>
-                                    </div>
-                                </div> 
-
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="control-label">تاريخ المعاينة</label>
-                                        <input type="date" id="check_date" name="check_date" 
-                                        value="{{$old->check_date}}" class="form-control " >
-                                      </div>
-                                    </div>
-                                </div> 
+                               
                             </div>  
                           <div class="form-actions">
                             <div class="col-md-12 text-center" >
                               <button type="submit"  name="submit" class="btn green btn_save">
                               <i class="fa fa-pencil"></i> تعديل</button>
-                              <button type="button" class="btn default btn_save">
-                              <i class="fa fa-times"></i> الغاء</button> 
+                             <a href="{{url('orders/all-orders')}}" type="button" class="btn default btn_save">
+                              <i class="fa fa-times"></i> الغاء</a> 
                             </div>      
                           </div>
                         </form>

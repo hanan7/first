@@ -7,7 +7,8 @@
 <link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" 
     rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />              
+<link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" /> 
+            
 @endsection
 @section("content-title")
  <h3 class="page-title">الطلبيات</h3>  
@@ -17,7 +18,7 @@
 <ul class="page-breadcrumb">
   <li>
     <i class="icon-home"></i>
-    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="{{url('/admin')}}">الصفحة الرئيسية</a>
     <i class="fa fa-angle-left"></i>
   </li>
   <li>
@@ -43,27 +44,27 @@
         </div>
  @endif
  @if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
-  @if(session()->has('danger'))
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
+ @endif
 
-  <div  class="alert alert-success">
-      <ul>
-         <li>
-           لاضافة المندوب والسباك يجب عليك تأكيد الطلبية
-          </li>
-      </ul>
-    </div> 
+  
     
 <div class="portlet box blue ">
     <div class="portlet-title">
@@ -80,66 +81,40 @@
                 </a>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="btn-group pull-right">
-                  <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">الادوات
-                    <i class="fa fa-angle-down"></i>
-                  </button>
-                  <ul class="dropdown-menu pull-right">
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-print"></i> طباعه  </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-pdf-o"></i> حفظ ك  PDF </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-excel-o"></i> تصدير الى  Excel </a>
-                    </li>
-                  </ul>
-              </div>
-            </div>
+            
           </div>
         </div>  
 
       
          <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
             <thead>
-              <tr>
-                <th class="text-center"> اسم التاجر</th>
-                <th class="text-center"> العنوان</th>
-                <th class="text-center"> التليفون </th>
-                <th class="text-center"> التاريخ</th>
- 		            <th class="text-center"> اسم الصنف</th>
- 		            <th class="text-center"> الكمية</th>
-                <th class="text-center"> المندوب المرسل</th>
-                <th class="text-center"> السباك المرسل</th>
-                <th class="text-center"> تاريخ المعاينة</th>
+              <tr> 
+                <th class="text-center"> كود الطلبية</th>
+                <th class="text-center"> محتوى الطلبية</th>
+           
                 <th class="text-center"> العمليات</th>
               </tr>
             </thead>
-             
+              
             <tbody>
             @foreach($orders as $order)
-              <tr>                
-                    <td class="text-center"> {{ $order->trader_name }} </td>
-                    <td class="text-center"> {{ $order->address }} </td>
-                    <td class="text-center"> {{ $order->phone }} </td>
-                    <td class="text-center"> {{ $order->created_at}}</td>
-                    <td class="text-center"> {{ $order->goods}}</td>
-                    <td class="text-center"> {{ $order->qty}}</td>
-                    <td class="text-center"> {{ $order->delegate_sender}}</td>
-                    <td class="text-center"> {{ $order->plumber_sender}}</td>
-                    <td class="text-center"> {{ $order->check_date}}</td>
+              <tr>   
+                    <td class="text-center"> {{ $order->code }} </td>             
+                    <td class="text-center"> {{ $order->name }} </td>
+                 
                     <td class="text-center">
-                      <a href="{{URL('orders/'.'edit/'.$order->id)}}"  class="btn green btnedit" data-original="">
-                        <li class="fa fa-pencil"> تأكيد الطلبية</li>
-                      </a>
-                      <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
+                      
+                      @if(Auth::guard('admins')->user()->flag==0 )
+                        <a data-url="{{URL('orders/'.'delete/'.$order->id)}}" 
+                        class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
+                        </a>
+                      @endif
+                      @if(Auth::guard('admins')->user()->flag==0  || Auth::guard('admins')->user()->flag==1 || Auth::guard('admins')->user()->flag==4 )
+                      <a  href="{{URL('orders/'.'invoice/'.$order->id)}}" class="btn yellow" target="_blank">
+                        <li class="fa fa-check"> الفاتورة</li>
                       </a>
+                      @endif
                     </td>
               </tr>
               @endforeach 
@@ -148,34 +123,10 @@
        
     </div> 
 </div>
- @include('admin.pages.orders.addorder')
+@include('admin.pages.orders.addorder')
+
 <!-- Modal -->
-<div id="deletemodal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-    
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">مسح عنصر</h4>
-      </div>
-      <div class="modal-body">
-        <p>هل تريد تأكيد عملية المسح ؟</p>
-      </div>
-      <div class="modal-footer">
-
-        <a href="{{URL('orders/'.'delete/'.$order->id)}}" id="delete" class="btn btn red"><li class="fa fa-trash"></li> مسح</a>
-     
-        <button type="button" class="btn btn dafault" data-dismiss="modal"><li class="fa fa-times"></li> الغاء</button>
-    
-      </div>
-      </form>
-    </div>
-
-  </div>
-</div
 
 @endsection
 

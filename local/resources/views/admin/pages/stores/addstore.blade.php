@@ -1,3 +1,4 @@
+<script src="{{asset('assets/admin/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
 <!-- Modal -->
 <div id="addstore" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -6,17 +7,17 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">اضافة مخزن</h4>
+         <h4 class="modal-title bold">اضافة مخزن</h4>
       </div>
         
           <form method="post" name="productform" action="{{url('stores/add')}}" class=" horizontal-form">
             <input type="hidden"  name="_token" value="{{ csrf_token() }}">
-                <div class="modal-body">
+                <div class="modal-body" style="overflow-y:scroll;">
                                 <div class="row">
                                   <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">اسم المخزن</label>
-                                        <input type="text" id="name" name="name" class="form-control "  class="form-control " >
+                                        <input type="text" id="name" name="name" class="form-control "  class="form-control " required>
                                       </div>
                                   </div>
                                 
@@ -75,6 +76,32 @@
                                       </div>
                                     </div>
                                 </div> 
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="control-label">نوع المخزن</label>
+
+                                        @if(!empty($storesType))
+                                        <select class="form-control" name="store_type" id="storetype">
+                                          <option>اختر نوع المخزن</option>
+                                         @foreach($storesType as $t)
+                                         <option value="{{$t->id}}">{{$t->type}}</option>
+                                         @endforeach
+                                         </select>
+                                         @endif
+
+                                      </div>
+                                    </div>
+                                    <!-- style="display:none"-->
+                                     <div class="col-md-6" >
+                                      <div class="form-group"  id="x" style="display:none">
+                                        <label class="control-label">الحد الائتمانى</label>
+                                        <input type="text"
+                                         name="range" class="form-control" >
+                                      </div>
+                                    </div>
+                                   
+                                </div> 
 
                                 <div class="row">
                                     <div class="col-md-6">
@@ -83,13 +110,11 @@
                                         <input type="text" id="content_type" name="content_type" class="form-control" >
                                       </div>
                                     </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="control-label">البضائع الموجودة</label>
-                                        <textarea id="goods" name="goods" class="form-control"></textarea>
-                                      </div>
-                                    </div>
-                                </div>                
+                                    
+                                   
+                                </div>  
+                              
+      
                 </div>
     
       <div class="modal-footer">
@@ -102,5 +127,42 @@
     </form> 
     </div>
   </div>
-</div>
+ 
 <!-- endModal -->
+
+ 
+</div>
+
+<script>
+
+jQuery(document).ready(function()
+{
+  if($('#storetype').val()==6)
+  {
+
+  $('#x').css('display','block');
+
+  }else
+  {
+    $('#x').css('display','none');
+
+  }
+  
+
+//display input if store type =wakeil
+$('#storetype').change(function(){
+  var x=$(this);
+  if(x.val()==6)
+  {
+    $('#x').css('display','block');
+
+  }else
+  {
+    $('#x').css('display','none');
+
+  }
+})
+
+})
+
+</script>

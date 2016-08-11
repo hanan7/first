@@ -30,6 +30,26 @@
 @endsection
                 
 @section('content')
+@if(session()->has('sucess'))
+ <?php $a=[];
+ $a = session()->pull('sucess');
+ ?>
+    <div class="alert alert-success alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
+    <div class="alert alert-warrning alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
   <div class="row">
     <div class="col-md-12">
       <div class="tabbable tabbable-custom tabbable-noborder tabbable-reversed">
@@ -82,11 +102,12 @@
                                   </div>
                                 </div>
 
-                              <div class="row">
+                                <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">نوع التوريد</label>
                                         <select class="form-control" name="type">
+                                        <option value="{{ $old->type }}"> {{ $old->type }} </option>
                                         <option value="يومى"> يومى </option>
                                         <option value="اسبوعى"> اسبوعى </option>
                                         <option value="شهرى"> شهرى </option>
@@ -97,7 +118,12 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">المخازن المستلمة</label>
-                                        <input type="text" id="recipient_stores" name="recipient_stores" class="form-control" value="{{$old->recipient_stores}}">
+                                       
+                                        <select class="form-control" name="recipient_stores">
+                                        @foreach($stores as $store)
+                                          <option value="{{$store->name}}"> {{$store->name}} </option>
+                                        @endforeach  
+                                        </select>
                                       </div>
                                     </div>
                                 </div> 
@@ -110,14 +136,22 @@
                                       </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                      <div class="form-group">
+                                        <label class="control-label">الديون / المستحقات</label>
+                                        <input  id="debt" name="debt" class="form-control" value="{{$old->debt}}">
+                                      </div>
+                                    </div>
+                                </div>
                               
                             </div>  
                           <div class="form-actions">
                             <div class="col-md-12 text-center" >
                               <button type="submit"  name="submit" class="btn green btn_save">
                               <i class="fa fa-pencil"></i> تعديل</button>
-                              <button type="button" class="btn default btn_save">
-                              <i class="fa fa-times"></i> الغاء</button> 
+                             <a href="{{url('suppliers/all-suppliers')}}" type="button" class="btn default btn_save">
+                              <i class="fa fa-times"></i> الغاء</a> 
                             </div>      
                           </div>
                         </form>

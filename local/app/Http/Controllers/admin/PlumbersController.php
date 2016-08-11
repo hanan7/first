@@ -7,11 +7,18 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
 use App\Plumber;
+use App\Place;
+use Auth;
 class PlumbersController extends Controller
 {
     public function getAllPlumbers(){
     	$plumbers = Plumber::get();
     	return view ('admin.pages.plumbers.allplumbers' , compact('plumbers'));
+    }
+ 
+    public function getPoints(){
+        $plumbers = Plumber::where('admin_id',Auth::guard('admins')->user()->id)->get();
+        return view ('admin.pages.plumbers.points' , compact('plumbers'));
     }
    
     public function postAdd(Request $request){
@@ -20,14 +27,35 @@ class PlumbersController extends Controller
     	$plumber->name=$request->input('name');
         $plumber->phone=$request->input('phone');
         $plumber->address=$request->input('address');
-        $plumber->contract_date=$request->input('contract_date');
-        $plumber->contract_type=$request->input('contract_type');
-        $plumber->salary=$request->input('salary');
-        $plumber->numberpoint=$request->input('numberpoint');
+        $plumber->points=$request->input('points');
         $plumber->save();
 
-        Session::flash('success','تمت الاضافة بنجاح');
+        session()->push('success','تمت الاضافة بنجاح');
     	return redirect('plumbers/all-plumbers');
+
+    }
+    public function getAllPlaces(){
+        $place = Place::get();
+        return view ('admin.pages.plumbers.allplaces' , compact('place'));
+    }
+    public function postAddPlace(Request $request){
+        $Place = new Place();
+        $place->name=$request->input('name');
+        $place->agent_name=$request->input('agent_name');
+        $place->phone=$request->input('phone');
+        $place->address=$request->input('address');
+
+        $file=$request->file('image'); 
+        $destinationpath  ='uploads/places';
+        $filename=$file->getClientOriginalName();
+        $file ->move ($destinationpath,$filename);
+        $place->image=$filename; 
+        $place->plumber_id=Auth::guard('admins')->user()->id;
+       
+        $place->save();
+
+        session()->push('success','تمت الاضافة بنجاح');
+        return redirect('plumbers/all-places');
 
     }
     
@@ -42,14 +70,11 @@ class PlumbersController extends Controller
         $plumber->name=$request->input('name');
         $plumber->phone=$request->input('phone');
         $plumber->address=$request->input('address');
-        $plumber->contract_date=$request->input('contract_date');
-        $plumber->contract_type=$request->input('contract_type');
-        $plumber->salary=$request->input('salary');
-        $plumber->numberpoint=$request->input('numberpoint');
+        $plumber->points=$request->input('points');
 
         $plumber->save();
 
-        session()->flash('success','تم التعديل بنجاح');
+        session()->push('success','تم التعديل بنجاح');
     	return redirect('plumbers/all-plumbers');
 
     }

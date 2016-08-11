@@ -43,20 +43,25 @@
         </div>
  @endif
  @if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
-  @if(session()->has('danger'))
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
-
+ @endif
   	<div class="portlet box blue">
     <div class="portlet-title">
         <div class="caption">
@@ -87,7 +92,6 @@
                 <th class="text-center"> امين المخزن </th>
                 <th class="text-center"> عدد العمال </th>
                 <th class="text-center"> المحتوى</th>
-                <th class="text-center"> البضائع</th>
                 <th class="text-center">العمليات</th>
               </tr>
             </thead>
@@ -103,14 +107,32 @@
                     <td class="text-center"> {{ $str->storekeeper}} </td>
                     <td class="text-center"> {{ $str->workers_no }} </td>
                     <td class="text-center"> {{ $str->content_type }} </td>
-                    <td class="text-center"> {{ $str->goods }}  </td>
+                   
                     <td class="text-center">
-                      <a href="{{URL('stores/'.'edit/'.$str->id)}}"  class="btn green btnedit" data-original="">
+                      <a href="{{URL('stores/'.'edit/'.$str->id)}}" 
+                       class="btn green btnedit" data-original="">
                         <li class="fa fa-pencil"> تعديل</li>
                       </a>
-                      <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
+                      @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
+                       <a data-url="{{URL('stores/'.'delete/'.$str->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
+                      <a href="{{URL('stores/inventory/'.$str->id)}}"
+                        data-toggle="modal" class="btn btn-warning 
+                        "  >
+                          <li class="fa "> جرد </li>
+                      </a>
+                      <a href="{{URL('stores/goods/'.$str->id)}}" 
+                        data-toggle="modal" class="btn btn-danger 
+                        "  >
+                          <li class="fa "> بضائع </li>
+                      </a>
+                       <a href="{{URL('/stores/all-inventory/'.$str->id)}}" 
+                        data-toggle="modal" class="btn btn-danger 
+                        "  >
+                          <li class="fa "> كل الجرد </li>
+                      </a>
+                      @endif
                     </td>
               </tr>
               @endforeach 
@@ -118,42 +140,18 @@
           </table>
        
     </div>
-   @include('admin.pages.stores.addstore')   
+  
 </div>
-
+   @include('admin.pages.stores.addstore') 
 <!-- Modal -->
-<div id="deletemodal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-    
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">مسح عنصر</h4>
-      </div>
-      <div class="modal-body">
-        <p>هل تريد تأكيد عملية المسح ؟</p>
-      </div>
-      <div class="modal-footer">
-
-        <a href="{{URL('stores/'.'delete/'.$str->id)}}" id="delete" class="btn btn red"><li class="fa fa-trash"></li> مسح</a>
-     
-        <button type="button" class="btn btn dafault" data-dismiss="modal"><li class="fa fa-times"></li> الغاء</button>
-    
-      </div>
-      </form>
-    </div>
-
-  </div>
-</div
 @endsection
 
 @section("layoutscripts")
         ><script src="{{asset('assets/admin/global/scripts/datatable.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+
 
 @endsection
 

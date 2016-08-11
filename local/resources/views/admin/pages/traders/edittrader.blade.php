@@ -30,6 +30,27 @@
 @endsection
                 
 @section('content')
+
+@if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
+    <div class="alert alert-success alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
+    <div class="alert alert-warrning alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
   <div class="row">
     <div class="col-md-12">
       <div class="tabbable tabbable-custom tabbable-noborder tabbable-reversed">
@@ -83,8 +104,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">التقييم</label>
-                                        <input type="number" id="numberpoint" name="numberpoint" class="form-control" value="{{$old->numberpoint}}" placeholder="التقييم من 1 ل 5">
+                                        <label class="control-label">النقاط</label>
+                                        <input type="number" id="points" name="points" class="form-control" value="{{$old->points}}" placeholder="نقاط التاجر">
                                       </div>
                                     </div>
                                     <div class="col-md-6">
@@ -104,6 +125,7 @@
                                       <div class="form-group">
                                        <label class="control-label">طرق الدفع</label>
                                         <select class="form-control" name="deal_type">
+                                        <option value="{{ $old->deal_type }}"> {{ $old->deal_type }} </option>
                                         <option value="نقدى"> نقدى </option>
                                         <option value="تحويل"> تحويل </option>
                                         <option value="أجل"> أجل </option>
@@ -116,28 +138,30 @@
                                       <div class="form-group">
                                        <label class="control-label">نوع التاجر</label>
                                         <select class="form-control" name="trader_type">
+                                        <option value="{{ $old->trader_type }}"> {{ $old->trader_type }} </option>
                                         <option value="تاجر جملة"> تاجر جملة </option>
                                         <option value="تاجر قطاعى"> تاجر قطاعى </option>
                                         </select>
                                       </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
+                                 <div class="row">
+                                  <div class="col-md-9">
                                       <div class="form-group">
-                                        <label class="control-label">انواع البضائع</label>
-                                        <textarea id="goods" name="goods" class="form-control"></textarea> 
+                                        <label class="control-label">الديون / المستحقات</label>
+                                        <input type="text" id="debt" name="debt" class="form-control "  class="form-control " value="{{$old->debt}}">
                                       </div>
-                                    </div> 
-                                </div> 
+                                  </div>
+                                </div>  
+
+                               
                             </div>  
                           <div class="form-actions">
                             <div class="col-md-12 text-center" >
                               <button type="submit"  name="submit" class="btn green btn_save">
                               <i class="fa fa-pencil"></i> تعديل</button>
-                              <button type="button" class="btn default btn_save">
-                              <i class="fa fa-times"></i> الغاء</button> 
+                              <a href="{{url('traders/all-traders')}}" type="button" class="btn default btn_save">
+                              <i class="fa fa-times"></i> الغاء</a>  
                             </div>      
                           </div>
                         </form>

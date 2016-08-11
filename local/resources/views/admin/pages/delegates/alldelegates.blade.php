@@ -1,7 +1,7 @@
 @extends("admin/master")
 
 @section("title")
-المندوبين
+الوكلاء الرئسين
 @endsection
 @section("styles")
 <link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
@@ -10,18 +10,18 @@
 <link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />              
 @endsection
 @section("content-title")
- <h3 class="page-title">المندوبين</h3>  
+ <h3 class="page-title">الوكلاء الرئسين</h3>  
 @endsection
 
 @section("content-navigat")
 <ul class="page-breadcrumb">
   <li>
     <i class="icon-home"></i>
-    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="{{url('/admin')}}">الصفحة الرئيسية</a>
     <i class="fa fa-angle-left"></i>
   </li>
   <li>
-   <a href="#">المندوبين</a>
+   <a href="#">الوكلاء الرئيسين</a>
 
 
  </li>
@@ -42,25 +42,31 @@
             </ul>
         </div>
  @endif
- @if(session()->has('success'))
+@if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
-  @if(session()->has('danger'))
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
+ @endif
 
 <div class="portlet box blue ">
     <div class="portlet-title">
         <div class="caption">
-          <i class="fa fa-eye"></i> عرض المندوبين</div>
+          <i class="fa fa-eye"></i> عرض الوكلاء الرئسين</div>
     </div>
 
     <div class="portlet-body" >
@@ -68,31 +74,12 @@
           <div class="row">
             <div class="col-md-6">
               <div class="btn-group">
-                <a  href="#adddelegate" data-toggle="modal" class="btn btn blue" ><i class="fa fa-plus"></i>  اضافة مندوب
+                <a  href="#adddelegate" data-toggle="modal" class="btn btn blue" >
+                  <i class="fa fa-plus"></i>  اضافة وكيل رئيسى
                 </a>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="btn-group pull-right">
-                  <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">الادوات
-                    <i class="fa fa-angle-down"></i>
-                  </button>
-                  <ul class="dropdown-menu pull-right">
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-print"></i> طباعه  </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-pdf-o"></i> حفظ ك  PDF </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-excel-o"></i> تصدير الى  Excel </a>
-                    </li>
-                  </ul>
-              </div>
-            </div>
+           
           </div>
         </div>  
 
@@ -100,15 +87,19 @@
         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
             <thead>
               <tr>
-                <th class="text-center"> كود المندوب </th>
-                <th class="text-center"> اسم المندوب</th>
+                <th class="text-center"> الكود     </th>
+                <th class="text-center"> الاسم    </th>
                 <th class="text-center"> العنوان</th>
                 <th class="text-center"> التليفون </th>
-                <th class="text-center"> نوع المندوب </th>
+                <th class="text-center"> النوع     </th>
                 <th class="text-center"> نوع العمل </th>
-                <th class="text-center"> نقاط الارباح </th>
-                <th class="text-center"> الراتب </th>
-                <th class="text-center"> تاريخ التعاقد </th>
+                <th class="text-center"> نقاط المبيع </th>
+                <th class="text-center">  المرتجع </th>
+                <th class="text-center"> النسبة </th>
+                
+                 <th class="text-center"> نقاط رئسية </th>
+                  <th class="text-center">  ملحقة </th>
+            
                 <th class="text-center"> العمليات </th>
               </tr>
             </thead>
@@ -123,16 +114,23 @@
                     <td class="text-center"> {{ $delegate->phone }} </td>
                     <td class="text-center"> {{ $delegate->type }} </td>
                     <td class="text-center"> {{ $delegate->sortwork }} </td>
-                    <td class="text-center"> {{ $delegate->numberpoint}} </td>
+                    <td class="text-center"> {{ $delegate->back_points}} </td>
+                    <td class="text-center"> {{ $delegate->points}} </td>
                     <td class="text-center"> {{ $delegate->salary }} </td>
-                    <td class="text-center"> {{ $delegate->created_at }} </td>
+                    <td class="text-center"> {{ $delegate->main_point }} </td>
+                    <td class="text-center"> {{ $delegate->plus_point }} </td>
+ 
                     <td class="text-center">
                       <a href="{{URL('delegates/'.'edit/'.$delegate->id)}}"  class="btn green btnedit" data-original="">
                         <li class="fa fa-pencil"> تعديل</li>
                       </a>
-                      <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
+                      @if(Auth::guard('admins')->user()->flag==0)
+
+                      <a data-url="{{URL('delegates/'.'delete/'.$delegate->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
+
+                      @endif
                     </td>
               </tr>
               @endforeach 
@@ -142,29 +140,7 @@
     </div> 
 </div>
 
-<!-- Modal -->
-<div id="deletemodal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-    
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">مسح عنصر</h4>
-      </div>
-      <div class="modal-body">
-        <p>هل تريد تأكيد عملية المسح ؟</p>
-      </div>
-      <div class="modal-footer">
-
-        <a href="{{URL('delegates/'.'delete/'.$delegate->id)}}" id="delete" class="btn btn red"><li class="fa fa-trash"></li> مسح</a>
-     
-        <button type="button" class="btn btn dafault" data-dismiss="modal"><li class="fa fa-times"></li> الغاء</button>
-    
-      </div>
-    </div>
+   
 
   </div>
 </div>

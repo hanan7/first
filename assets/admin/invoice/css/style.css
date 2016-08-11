@@ -1,0 +1,128 @@
+.form {
+  background: #FFF;
+  margin-top: 50px;
+}
+.form .container{
+  
+}
+.form .form-header{
+  background-color: #3b5998;
+  border-bottom: 1px solid #29487d;
+  color: #fff;
+}
+.form .form-header .input-group-addon{
+    border: none;
+    background: #3b5998;
+    color: #FFF;
+}
+.form .form-header label{
+  font-size: 15px;
+  cursor: pointer;
+}
+.form .form-header .input[type=checkbox], input[type=radio]{
+  margin: 11px 1px 0;
+}
+.form .view{
+  background-color: #3b5998;
+  color: #FFF;
+  min-height: 120px;
+  text-align: center;
+  border-bottom: 1px solid #29487d;
+  padding-top: 15px;
+  width: 80px;
+  margin-right: 17px;
+  font-size: 20px;
+}
+@media (max-width: 1199px) {
+  .form .view{
+    margin-right: 0px;
+  }
+}
+@media (max-width: 991px) {
+  .form .view{
+  
+  }
+}
+.form .row .adds{
+  padding-right: 8px;
+}
+.form .details .row .input-group[class*=col-]{
+  float: right;
+  padding-right: 15px;
+}
+.form .details .row .input-group .form-control:not(select){
+  width: 88%;
+  font-size: 16px;
+}
+.form .details .input-group{
+  margin-top: 5px;
+}
+.form .details .row .input-group select{
+  width: 111%;
+}
+.form .details .input-group-addon{
+  font-size: 16px;
+    font-weight: 600;
+    background: #3b5998;
+    color: #FFF;
+    min-width: 65px;
+}
+.form .data .panel{
+  margin-bottom: 0;
+}
+.form .data .panel .panel-heading{
+  font-size: 25px;
+  font-weight: 900;
+}
+.form .data .background{
+  background: #EEE;
+}
+.form .type{
+  background-color: #EEE;
+  padding-top: 40px;
+  padding-bottom: 25px;
+  padding-right: 16px;
+}
+.form .type .input-group-addon{
+  background-color: #3b5998;
+  color: #FFF;
+  font-size: 15px;
+  min-width: 80px;
+  border-radius: 5px;
+  border: none;
+  padding-top: 8px;
+ 
+}
+.form .type .input-group-addon label{
+  cursor: pointer;
+}
+.form .type .input[type=checkbox], input[type=radio]{
+  margin: 11px 10px 0;
+}
+.form .last{
+  margin-top: 10px;
+}
+.form .last .but button{
+  min-width: 177px;
+}
+.form .last .input-group{
+  margin-bottom: 5px;
+}
+.form .last .input-group p{
+  margin: 0 65px 4px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.form .last .input-group-addon{
+  min-width: 65px;
+  font-weight: 800;
+    font-size: 15px;
+    background: #3b5998;
+    color: #FFF;
+}
+.form .last .input-group-addon.paid{
+  background-color: green;
+}
+.form .last .input-group-addon.change{
+  background-color: red;
+}

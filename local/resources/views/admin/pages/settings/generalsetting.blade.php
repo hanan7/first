@@ -37,20 +37,26 @@
             </ul>
         </div>
  @endif
- @if(session()->has('success'))
+@if(session()->has('sucess'))
+ <?php $a=[];
+ $a = session()->pull('sucess');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif
-  @if(session()->has('danger'))
+ @endif
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
+ @endif
 <meta name="_token" content="{{ csrf_token() }}">
 <div class="row">
 	<div class="col-md-12">
@@ -109,18 +115,9 @@
 															</div>
 													    </div>
 													</div>
+												
 													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label class="control-label">صورة اللوجو</label>
-																<div class="input-icon right">
-																	<input type="file"  id="logo" name="logo" value="{{$sections->logo}}" class="form-control" >
-															    </div>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
+														<div class="col-md-9">
 															<div class="form-group">
 																<label class="control-label">عن الشركة</label>
 																<div class="input-icon right">

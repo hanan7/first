@@ -9,13 +9,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Setting;
 use Session;
-
+use Auth;
+use App\Admin;
 class SettingsController extends Controller
 {
     public function getGeneralSettings(){
-    	 $id= 1;
+    if(Auth::guard('admins')->user()->flag==0){
+    	$id= 1;
+        
         $sections=Setting::find($id);
         return view('admin.pages.settings.generalsetting' , compact('sections'));
+    }
+    else{
+        return('غير مسموح لك بدخول هذه الصفحة');
+    }
+    }
+
+    public function getProfile(){
+        $id=Auth::guard('admins')->user()->id;
+        $admin = Admin::find($id);
+        return view('admin.pages.settings.profile2' , compact('admin'));
     }
     
      public function postEdit(Request $request){
@@ -37,16 +50,10 @@ class SettingsController extends Controller
             $sections->logo=$filename;
         }    
     	$sections->about=$request->input('about');
-    	$sections->trips_num=$request->input('trips_num');
-    	$sections->trips_desc=$request->input('trips_desc');
-    	$sections->agents_num=$request->input('agents_num');
-    	$sections->agents_desc=$request->input('agents_desc');
-
+    
     	$sections->email=$request->input('email');
-    	$sections->googlePlus=$request->input('googlePlus');
     	$sections->facebook=$request->input('facebook');
     	$sections->twitter=$request->input('twitter');
-    	$sections->linkedIn=$request->input('linkedIn');
     	$sections->instagram=$request->input('instagram');
 
     	$sections->meta_keyword=$request->input('meta_keyword');
@@ -55,7 +62,7 @@ class SettingsController extends Controller
     	
     	$sections->save();
 
-    	session()->flash('success','تم الاضافة بنجاح');
+    	session()->push('success','تم الاضافة بنجاح');
     	return redirect('settings/general-settings');
     }
     

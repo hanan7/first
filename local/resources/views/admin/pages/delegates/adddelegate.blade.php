@@ -6,7 +6,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">اضافة مندوب</h4>
+         <h4 class="modal-title bold">اضافة وكيل </h4>
 
       </div>
         
@@ -16,15 +16,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">كود المندوب</label>
+                                        <label class="control-label">كود الوكيل </label>
                                         <input type="number" id="code" name="code" class="form-control "  class="form-control " >
                                       </div>
                                     </div>
                                 
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">اسم المندوب</label>
-                                        <input type="text" id="name" name="name" class="form-control " >
+                                        <label class="control-label">اسم الوكيل </label>
+                                        <input type="text" id="name" name="name" class="form-control" required>
                                       </div>
                                     </div>
                                 </div>
@@ -61,6 +61,9 @@
                                     </div>
                                 </div> 
 
+                                 
+
+
                                 <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
@@ -73,10 +76,10 @@
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label">نوع المندوب</label>
+                                        <label class="control-label">نوع الوكيل </label>
                                         <select class="form-control" name="type">
-                                        <option value="مندوب تسليم"> مندوب تسليم </option>
-                                        <option value="مندوب مبيعات"> مندوب مبيعات </option>
+                                        <option value="وكيل  تسليم"> وكيل  تسليم </option>
+                                        <option value="وكيل  مبيعات"> وكيل  مبيعات </option>
                                         </select>
                                       </div>
                                     </div>
@@ -110,7 +113,27 @@
                                         <input type="text" id="properties" name="properties" class="form-control" placeholder="اشياء اخرى" >
                                       </div>
                                     </div>
-                                </div>       
+                                </div>  
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="control-label">نقاط رئسية</label>
+                                         <input type="text" id="properties" name="main_point"
+                                          class="form-control" placeholder="" >
+                                       
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                      <div class="form-group">
+                                        <label class="control-label">نقاط فرعية</label>
+                                         <input type="text" id="properties" name="plus_point"
+                                          class="form-control" placeholder="" >
+                                       
+                                      </div>
+                                      
+                                    </div>
+                                </div>     
                                
     
       <div class="modal-footer">

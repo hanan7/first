@@ -16,7 +16,7 @@
 <ul class="page-breadcrumb">
   <li>
     <i class="icon-home"></i>
-    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="{{url('/admin')}}">الصفحة الرئيسية</a>
     <i class="fa fa-angle-left"></i>
   </li>
   <li>
@@ -41,10 +41,13 @@
             </ul>
         </div>
  @endif
- @if(session()->has('success'))
+@if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
@@ -147,8 +150,8 @@
                             <div class="col-md-12 text-center" >
                               <button type="submit"  name="submit" class="btn green btn_save">
                               <i class="fa fa-pencil"></i> تعديل</button>
-                              <button type="button" class="btn default btn_save">
-                              <i class="fa fa-times"></i> الغاء</button> 
+                             <a href="{{url('employees/all-employees')}}" type="button" class="btn default btn_save">
+                              <i class="fa fa-times"></i> الغاء</a> 
                             </div>      
                           </div>
                        </form>

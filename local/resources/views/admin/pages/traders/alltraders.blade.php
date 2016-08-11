@@ -43,19 +43,25 @@
         </div>
  @endif
  @if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
-  @if(session()->has('danger'))
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
+ @endif
 
   	<div class="portlet box blue ">
     <div class="portlet-title">
@@ -72,27 +78,8 @@
                 </a>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="btn-group pull-right">
-                  <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">الادوات
-                    <i class="fa fa-angle-down"></i>
-                  </button>
-                  <ul class="dropdown-menu pull-right">
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-print"></i> طباعه  </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-pdf-o"></i> حفظ ك  PDF </a>
-                    </li>
-                    <li>
-                      <a href="javascript:;">
-                      <i class="fa fa-file-excel-o"></i> تصدير الى  Excel </a>
-                    </li>
-                  </ul>
-              </div>
-            </div>
+           
+          
           </div>
         </div>  
 
@@ -107,7 +94,8 @@
                 <th class="text-center"> طرق الدفع </th>
                 <th class="text-center"> نوع التاجر</th>
                 <th class="text-center"> المندوب المرسل </th>
-		            <th class="text-center"> اسماء البضائع </th>
+		            <th class="text-center"> النقاط </th>
+                <th class="text-center"> الديون </th>
                 <th class="text-center"> العمليات </th>
 
               </tr>  
@@ -124,15 +112,18 @@
                     <td class="text-center"> {{ $trd->deal_type }} </td>
                     <td class="text-center"> {{ $trd->trader_type }} </td>
                     <td class="text-center"> {{ $trd->sender }} </td>
-                    <td class="text-center"> {{ $trd->goods}}</td>
-                
+                    <td class="text-center"> {{ $trd->points}}</td>
+                    <td class="text-center"> {{ $trd->debt}}</td>
+
                     <td class="text-center">
                       <a href="{{URL('traders/'.'edit/'.$trd->id)}}"  class="btn green btnedit" data-original="">
                         <li class="fa fa-pencil"> تعديل</li>
                       </a>
-                      <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
+                      @if(Auth::guard('admins')->user()->flag==0)
+                       <a data-url="{{URL('traders/'.'delete/'.$trd->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
+                      @endif
                        
                     </td>
               </tr>
@@ -145,32 +136,7 @@
 @include('admin.pages.traders.addtrader')
 
 <!-- Modal -->
-<div id="deletemodal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-    
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">مسح عنصر</h4>
-      </div> 
-      <div class="modal-body">
-        <p>هل تريد تأكيد عملية المسح ؟</p>
-      </div>
-      <div class="modal-footer">
-
-        <a href="{{URL('traders/'.'delete/'.$trd->id)}}" id="delete" class="btn btn red"><li class="fa fa-trash"></li> مسح</a>
-     
-        <button type="button" class="btn btn dafault" data-dismiss="modal"><li class="fa fa-times"></li> الغاء</button>
-    
-      </div>
-      </form>
-    </div>
-
-  </div>
-</div
 
 @endsection
 

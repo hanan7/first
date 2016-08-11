@@ -1,3 +1,6 @@
+<script src="{{asset('assets/admin/global/plugins/jquery.min.js')}}" type="text/javascript">
+</script>
+
 @extends("admin/master")
 
 @section("title")
@@ -30,6 +33,27 @@
 @endsection
                 
 @section('content')
+@if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
+    <div class="alert alert-success alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
+    <div class="alert alert-warrning alert-dismissable">
+      <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+     {{$a[0]}}
+    
+    </div>
+ @endif
+ 
   <div class="row">
     <div class="col-md-12">
       <div class="tabbable tabbable-custom tabbable-noborder tabbable-reversed">
@@ -116,21 +140,50 @@
                                         value="{{$old->laborers}}" >
                                       </div>
                                     </div>
-                                </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="control-label">نوع المخزن</label>
 
+                                        @if(!empty($storesType))
+                                        <select class="form-control" name="store_type" 
+                                        id="storetype">
+                                          <option>اختر نوع المخزن</option>
+                                         @foreach($storesType as $t)
+                                         <option 
+                                         @if($old->store_type === $t->id)
+                                          selected="selected"
+                                         @endif
+                                          value="{{$t->id}}">{{$t->type}}</option>
+                                         @endforeach
+                                         </select>
+                                         @endif
+
+                                      </div>
+                                    </div>
+                                    <!-- style="display:none"-->
+                                     <div class="col-md-6" >
+                                      <div class="form-group"  id="x" style="display:none">
+                                        <label class="control-label">الحد الائتمانى</label>
+                                        <input type="text"
+                                         name="range" 
+                                          value="{{$old->range}}"
+                                         class="form-control" >
+                                      </div>
+                                    </div>
+                                   
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">نوع المحتوى</label>
-                                        <input type="text" id="content_type" name="content_type" class="form-control" value="{{$old->content_type}}">
+                                        <input type="text" id="content_type" 
+                                        name="content_type" class="form-control" 
+                                        value="{{$old->content_type}}">
                                       </div>
                                     </div>
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label class="control-label">البضائع الموجودة</label>
-                                        <textarea id="goods" name="goods" class="form-control" value="{{$old->goods}}"></textarea>
-                                      </div>
-                                    </div>
+                                    
                                 </div> 
                                
                               
@@ -139,8 +192,8 @@
                             <div class="col-md-12 text-center" >
                               <button type="submit"  name="submit" class="btn green btn_save">
                               <i class="fa fa-pencil"></i> تعديل</button>
-                              <button type="button" class="btn default btn_save">
-                              <i class="fa fa-times"></i> الغاء</button> 
+                              <a href="{{url('stores/all-stores')}}" type="button" class="btn default btn_save">
+                              <i class="fa fa-times"></i> الغاء</a> 
                             </div>      
                           </div>
                         </form>
@@ -150,3 +203,38 @@
     </div>
   </div>
 @endsection                     
+<script>
+
+jQuery(document).ready(function()
+{
+  var rang={{$old->store_type}};
+  //alert(rang);
+  if(rang==6)
+  {
+
+  $('#x').css('display','block');
+
+  }else
+  {
+    $('#x').css('display','none');
+
+  }
+  
+
+//display input if store type =wakeil
+$('#storetype').change(function(){
+  var x=$(this);
+  if(x.val()==6)
+  {
+    $('#x').css('display','block');
+
+  }else
+  {
+    $('#x').css('display','none');
+
+  }
+})
+
+})
+
+</script>

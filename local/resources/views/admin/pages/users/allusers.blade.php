@@ -1,15 +1,15 @@
 @extends("admin/master")
-
+ 
 @section("title")
 المستخدمين
 @endsection
 
 @section("styles")
-<link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" 
-    rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />              
+<link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" rel="stylesheet" type="text/css" />
+         
 @endsection
+
 @section("content-title")
  <h3 class="page-title">المستخدمين</h3>  
 @endsection
@@ -40,19 +40,25 @@
         </div>
  @endif
  @if(session()->has('success'))
+ <?php $a=[];
+ $a = session()->pull('success');
+ ?>
     <div class="alert alert-success alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('success')}} </p>
+     {{$a[0]}}
     
     </div>
  @endif
-  @if(session()->has('danger'))
+ @if(session()->has('danger'))
+ <?php $a=[];
+ $a = session()->pull('danger');
+ ?>
     <div class="alert alert-warrning alert-dismissable">
       <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
-      <p>{{session()->get('danger')}} </p>
+     {{$a[0]}}
     
     </div>
-  @endif 
+ @endif
 
     <div class="portlet box blue ">
     <div class="portlet-title">
@@ -81,9 +87,21 @@
                                 <th scope="col" class="text-center">
                                     اسم المستخدم
                                 </th>
-                                
                                 <th scope="col" class="text-center">
                                     الايميل
+                                </th>
+                                <th scope="col" class="text-center">
+                                    التليفون
+                                </th>
+                                <th scope="col" class="text-center">
+                                    العنوان
+                                </th>
+                                
+                                <th scope="col" class="text-center">
+                                    الصورة
+                                </th> 
+                                <th scope="col" class="text-center">
+                                    معلومات اخرى
                                 </th>   
                                 <th scope="col" class="text-center">
                                     الادوات
@@ -106,13 +124,23 @@
                                 <td class="text-center">
                                     {{$user->email}}
                                 </td>
+                                <td class="text-center">
+                                    {{$user->phone}}
+                                </td>
+                                <td class="text-center">
+                                    {{$user->address}}
+                                </td>
+                                <td class="text-center">
+                                  <img src="{{url('uploads/admins/'.$user->photo)  }}" style="width:100px; height:100px; "/>
+                                </td>
+                                <td class="text-center">
+                                    {{$user->other}}
+                                </td>
                                 
                                 <td class="text-center">
-                                    <a href="{{url('/admins/edit/'.$user->id)}}" class="btn btn green">
-                                        <i class="fa fa-pencil"></i> تعديل 
-                                    </a>
-									<a class="btn btn red" href="#deletemodal" data-toggle="modal">
-                                        <i class="fa fa-trash"></i> حذف 
+                                   
+									                  <a data-url="{{URL('users/'.'delete/'.$user->id)}}" class="btn btn-danger btndelet"  >
+                                      <li class="fa fa-trash">  مسح</li>
                                     </a>
                                 </td>                              
                             </tr>    
@@ -122,31 +150,20 @@
         </table>
     </div>
 @include('admin.pages.users.adduser')    
-    <!-- Modal -->
-<div id="deletemodal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-    
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">مسح عنصر</h4>
-      </div> 
-      <div class="modal-body">
-        <p>هل تريد تأكيد عملية المسح ؟</p>
-      </div>
-      <div class="modal-footer">
-
-        <a href="{{URL('users/'.'delete/'.$user->id)}}" id="delete" class="btn btn red"><li class="fa fa-trash"></li> مسح</a>
-     
-        <button type="button" class="btn btn dafault" data-dismiss="modal"><li class="fa fa-times"></li> الغاء</button>
-    
-      </div>
-      </form>
-    </div>
-
-  </div>
-</div    
+    <!-- Modal -->   
 @endsection        
+
+
+@section("layoutscripts")
+        <script src="{{asset('assets/admin/global/scripts/datatable.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/admin/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+
+@endsection
+
+@section("levelscripts")
+ <script src="{{asset('assets/admin/pages/scripts/table-datatables-managed.min.js')}}" type="text/javascript">
+  
+ </script>
+@endsection
+

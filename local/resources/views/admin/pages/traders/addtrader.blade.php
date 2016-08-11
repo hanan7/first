@@ -23,7 +23,7 @@
                                   <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">اسم التاجر</label>
-                                        <input type="text" id="name" name="name" class="form-control "  class="form-control " >
+                                        <input type="text" id="name" name="name" class="form-control "  class="form-control " required>
                                       </div>
                                   </div>
                                 </div>
@@ -48,8 +48,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label class="control-label"> التقييم</label>
-                                        <input type="number" id="numberpoint" name="numberpoint" class="form-control" placeholder="التقييم من 1 ل 5" >
+                                        <label class="control-label"> النقاط</label>
+                                        <input type="number" id="points" name="points" class="form-control" placeholder="نقاط التاجر" >
                                       </div>
                                     </div>
                                     <div class="col-md-6">
@@ -77,7 +77,7 @@
                                       </div>
                                     </div>
                                  
-                                  <div class="col-md-6">
+                                    <div class="col-md-6">
                                       <div class="form-group">
                                        <label class="control-label">نوع التاجر</label>
                                         <select class="form-control" name="trader_type">
@@ -89,13 +89,16 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                  <div class="col-md-9">
                                       <div class="form-group">
-                                        <label class="control-label">انواع البضائع</label>
-                                        <textarea id="goods" name="goods" class="form-control"></textarea> 
+                                        <label class="control-label">الديون / المستحقات</label>
+                                        <input type="text" id="debt" name="debt" class="form-control "  class="form-control " >
                                       </div>
-                                    </div> 
-                                </div>                     
+                                  </div>
+                                </div>  
+
+
+                                             
                 </div>
     
       <div class="modal-footer">

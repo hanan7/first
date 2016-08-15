@@ -6,11 +6,6 @@ use App\Classes\SSP;
 use App\Http\Controllers\Controller;
 use App\Store;
 use Illuminate\Http\Request;
-use function auth;
-use function redirect;
-use function session;
-use function url;
-use function view;
 
 class AdminController extends Controller {
 
@@ -101,5 +96,4 @@ class AdminController extends Controller {
         echo json_encode(
                 SSP::simple($request->all(), $sql_details, $table, $primaryKey, $columns));
     }
-
 }

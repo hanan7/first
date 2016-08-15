@@ -110,7 +110,6 @@ $(function () {
     $(document).on('click', '.del-sub-cat', function () {
         $(this).closest('.row').remove();
     });
-
     var table = $('#search').dataTable({
         "processing": true,
         "serverSide": true,

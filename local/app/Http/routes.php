@@ -1,19 +1,8 @@
 <?php
-
 use App\Good;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 
-
-
-////////////////////////////////////////// Admin Route /////////////////////////////////////////////////// 
-
-Route::get('/test/index',function(Request $request){
-   return view('test');
-});
-Route::get('/test',function(Request $request){
-    dd(Good::whereBetween('created_at',[Carbon::parse($request->input('from')),Carbon::parse($request->input('to'))])->get()->toArray());
-})->name('test');
 Route::group(['middleware' => ['web']], function () {
     
      Route::controller('admin','admin\AdminController');

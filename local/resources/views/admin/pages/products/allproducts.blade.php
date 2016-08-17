@@ -89,7 +89,7 @@ $a = session()->pull('danger');
         </div>  
 
         <!--<table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">-->
-        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="search">
+        <table class="table table-striped table-bordered table-hover table-checkable order-column" data-url="{{ url('admin/search') }}" id="search">
             <thead>
                 <tr>
                     <th class="text-center"> كود المنتج </th>

@@ -108,7 +108,27 @@
                     <span class="title">التجار</span>
                 </a>
             </li> 
-            @endif   
+            @endif  
+            
+            <li class="nav-item  ">
+                <a href="{{URL('orders/all-invoices')}}" class="nav-link nav-toggle">
+                    <i class="icon-layers"></i>
+                    <span class="title">الفواتير</span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item ">
+                        <a href="{{URL('orders/invoice')}}" class="nav-link ">
+                            <span class="title ">اضافة فاتوره جديده</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="{{URL('orders/all-invoices')}}" class="nav-link ">
+
+                            <span class="title ">عرض الفواتير السابقه</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
             @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==2  || Auth::guard('admins')->user()->flag==4 || Auth::guard('admins')->user()->flag==3)
             <li class="nav-item  ">
@@ -116,6 +136,21 @@
                     <i class="icon-layers"></i>
                     <span class="title">الطلبيات</span>
                 </a>
+                <ul class="sub-menu">
+                    <li class="nav-item ">
+                        <a href="{{URL('orders/order')}}" class="nav-link ">
+                            <span class="title ">اضافة طلبيه جديده</span>
+                        </a>
+                    </li>
+                    @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
+                    <li class="nav-item ">
+                        <a href="{{URL('orders/all-orders')}}" class="nav-link ">
+
+                            <span class="title ">عرض الطلبيات السابقه</span>
+                        </a>
+                    </li>
+                    @endif    
+                </ul>
             </li>
             @endif
 

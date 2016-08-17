@@ -1,14 +1,14 @@
 @extends("admin/master")
 
 @section("title")
-    الطلبيه
+    الفاتوره
 @endsection
 
 @section("styles")
     <link href="{{asset('assets/admin/pages/css/style.css')}}" rel="stylesheet" type="text/css"/>
 @endsection
 @section("content-title")
-    <h3 class="page-title">الطلبيه</h3>
+    <h3 class="page-title">الفاتوره</h3>
 @endsection
 
 @section("content-navigat")
@@ -19,7 +19,7 @@
             <i class="fa fa-angle-left"></i>
         </li>
         <li>
-            <a href="#">الطلبيه</a>
+            <a href="#">الفاتورة</a>
         </li>
     </ul>
 @endsection
@@ -35,14 +35,14 @@
 
     <section id="area-print" class="form">
         <div>
-            <form id="bill-form" action="{{ url('orders/order/'.($order->id ?: '')) }}" method="post">
+            <form id="bill-form" action="{{ url('orders/order/'.($invoice->id ?: '')) }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-header">
                     <div class="row row-header">
                         <div class="col-lg-6 col-xs-6">
                             <div class=" input-group ">
                                 <span class="input-group-addon">الأسم</span>
-                                <input type="text" name="name" value="{{ $order->name ?: '' }}" class="form-control"
+                                <input type="text" name="name" value="{{ $invoice->name ?: '' }}" class="form-control"
                                        placeholder=" تعامل نقدى"
                                        aria-describedby="sizing-addon3">
                             </div>
@@ -51,10 +51,10 @@
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon"><label for="type2">نقدي</label></span>
                                 <input id="type2" type="radio" name="type"
-                                       {{ $order->type == 'cash' ? 'checked' : '' }} value="cash">
+                                       {{ $invoice->type == 'cash' ? 'checked' : '' }} value="cash">
                                 <span class="input-group-addon"><label for="type1">آجل</label></span>
                                 <input id="type1" type="radio" name="type"
-                                       {{ $order->type == 'later' ? 'checked' : '' }} value="later">
+                                       {{ $invoice->type == 'later' ? 'checked' : '' }} value="later">
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-lg-7 col-sm-6 col-xs-5 "></div>
                     <div class="col-lg-1 col-sm-1 col-xs-1 view">
-                        بيانات الطلبيه
+                        بيانات الفاتورة
                     </div>
                     <div class="col-lg-4 col-sm-5 col-xs-4 adds">
                         <div class="details">
@@ -70,7 +70,7 @@
                                 <div class="input-group col-md-11">
                                     <span class="input-group-addon">المخزن</span>
                                     <select name="store" class="form-control">
-                                        @if(($store = \App\Store::find($order->store)) !== null)
+                                        @if(($store = \App\Store::find($invoice->store)) !== null)
                                             <option value="{{ $store->id }}">{{ $store->name }} الموجود
                                                 في {{  $store->address }}</option>
                                         @endif
@@ -83,14 +83,14 @@
                             </div>
                             <div class="row">
                                 <div class="input-group input-group-md col-lg-6 col-xs-6">
-                                    <span class="input-group-addon">الطلبيه</span>
+                                    <span class="input-group-addon">الفاتورة</span>
                                     <input type="number" name="number" class="form-control" min="1"
-                                           value="{{ $order->number ?: (\App\Invoice::where('related_to','order')->max('number') + 1) }}"
+                                           value="{{ $invoice->number ?: (\App\Invoice::where('related_to','invoice')->max('number') + 1) }}"
                                            aria-describedby="sizing-addon3">
                                 </div>
                                 <div class="input-group input-group-md col-lg-6 col-xs-6">
                                     <span class="input-group-addon">الدفتر</span>
-                                    <input type="text" name="note_book" value="{{ $order->note_book ?: '' }}"
+                                    <input type="text" name="note_book" value="{{ $invoice->note_book ?: '' }}"
                                            class="form-control" placeholder="1"
                                            aria-describedby="sizing-addon3">
                                 </div>
@@ -98,7 +98,7 @@
                             <div class="input-group input-group-md">
                                 <span class="input-group-addon">التاريخ</span>
                                 <input type="date" id="date" name="date" class="form-control" title="month/day/year"
-                                       value="{{ $order->date ? \Carbon\Carbon::parse($order->date)->toDateString() : \Carbon\Carbon::now()->toDateString() }}"
+                                       value="{{ $invoice->date ? \Carbon\Carbon::parse($invoice->date)->toDateString() : \Carbon\Carbon::now()->toDateString() }}"
                                        placeholder="Date"
                                        aria-describedby="sizing-addon3">
                             </div>
@@ -210,13 +210,13 @@
                         <div class="input-group input-group-sm col-xs-4">
                             <span class="input-group-addon"><label for="t0">المدفوع نقدي</label></span>
                             <input id="t0" type="radio" name="payment_method"
-                                   {{ $order->payment_method == 'cash' ? 'checked': '' }} value="cash">
+                                   {{ $invoice->payment_method == 'cash' ? 'checked': '' }} value="cash">
                             <span class="input-group-addon"><label for="t1">فيزا </label></span>
                             <input id="t1" type="radio" name="payment_method"
-                                   {{ $order->payment_method == 'visa' ? 'checked': '' }} value="visa">
+                                   {{ $invoice->payment_method == 'visa' ? 'checked': '' }} value="visa">
                             <span class="input-group-addon"><label for="t2"> شيك </label></span>
                             <input id="t2" type="radio" name="payment_method"
-                                   {{ $order->payment_method == 'cheque' ? 'checked': '' }} value="cheque">
+                                   {{ $invoice->payment_method == 'cheque' ? 'checked': '' }} value="cheque">
                         </div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
                         <div class="col-xs-4">
                             <div class="input-group input-group-md">
                                 <span class="input-group-addon">الملاحظات</span>
-                                <input type="text" name="notes" value="{{ $order->notes ?: '' }}" class="form-control"
+                                <input type="text" name="notes" value="{{ $invoice->notes ?: '' }}" class="form-control"
                                        placeholder="ملاحظات"
                                        aria-describedby="sizing-addon3">
                             </div>
@@ -241,20 +241,20 @@
                                     <div class="input-group input-group-md">
                                         <span class="input-group-addon">الإجمالى</span>
                                         <input type="number" id="bill-sub-total" min="0"
-                                               value="{{ $order->sub_total ?: '0' }}" name="sub_total"
+                                               value="{{ $invoice->sub_total ?: '0' }}" name="sub_total"
                                                class="form-control" placeholder="0"
                                                aria-describedby="sizing-addon3">
                                     </div>
                                     <div class="input-group input-group-md">
                                         <span class="input-group-addon">الإضافى</span>
-                                        <input type="number" min="0" value="{{ $order->extra_money ?: '0' }}"
+                                        <input type="number" min="0" value="{{ $invoice->extra_money ?: '0' }}"
                                                name="extra_money" class="form-control"
                                                placeholder="0"
                                                aria-describedby="sizing-addon3">
                                     </div>
                                     <div class="input-group input-group-md">
                                         <span class="input-group-addon">الخصم</span>
-                                        <input type="number" min="0" value="{{ $order->discount ?: '0' }}"
+                                        <input type="number" min="0" value="{{ $invoice->discount ?: '0' }}"
                                                name="discount" class="form-control"
                                                placeholder="0"
                                                aria-describedby="sizing-addon3">
@@ -266,14 +266,14 @@
                                     </div>
                                     <div class="input-group input-group-md">
                                         <span class="input-group-addon paid">المدفوع</span>
-                                        <input type="number" type="number" value="{{ $order->paid_amount ?: '0' }}"
+                                        <input type="number" type="number" value="{{ $invoice->paid_amount ?: '0' }}"
                                                min="0" name="paid_amount" min="0"
                                                class="form-control" placeholder="0"
                                                aria-describedby="sizing-addon3">
                                     </div>
                                     <div class="input-group input-group-md">
                                         <span class="input-group-addon change">الباقى</span>
-                                        <input type="number" min="0" value="{{ $order->paid_rest ?: '0' }}"
+                                        <input type="number" min="0" value="{{ $invoice->paid_rest ?: '0' }}"
                                                name="paid_rest" class="form-control"
                                                placeholder="0"
                                                aria-describedby="sizing-addon3">

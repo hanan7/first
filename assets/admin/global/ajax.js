@@ -110,10 +110,12 @@ $(function () {
     $(document).on('click', '.del-sub-cat', function () {
         $(this).closest('.row').remove();
     });
+    
+    // dataTable Plugin Ajax
     var table = $('#search').dataTable({
         "processing": true,
         "serverSide": true,
-        "ajax": base_url + "/admin/search"
+        "ajax": $('#search').data('url')
     });
 
     $('#search_filter input').attr('placeholder','Type + Press Enter').unbind();

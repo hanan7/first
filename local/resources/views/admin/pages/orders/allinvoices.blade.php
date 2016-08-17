@@ -1,7 +1,7 @@
 @extends("admin/master")
 
 @section("title")
-الطلبيات
+الفواتير
 @endsection
 @section("styles")
 <link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
@@ -11,7 +11,7 @@
 
 @endsection
 @section("content-title")
-<h3 class="page-title">الطلبيات</h3>  
+<h3 class="page-title">الفواتير</h3>  
 @endsection
 
 @section("content-navigat")
@@ -22,7 +22,7 @@
         <i class="fa fa-angle-left"></i>
     </li>
     <li>
-        <a href="#">الطلبيات</a>
+        <a href="#">الفواتير</a>
 
 
     </li>
@@ -71,17 +71,17 @@ $a = session()->pull('danger');
 <div class="portlet box blue ">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-eye"></i> عرض الطلبيات</div>
+            <i class="fa fa-eye"></i> عرض الفواتير</div>
     </div>
 
     <div class="portlet-body" >
-        <table class="table table-striped table-bordered table-hover table-checkable order-column"  data-url="{{ url('orders/search/order') }}" id="search">
+        <table class="table table-striped table-bordered table-hover table-checkable order-column"  data-url="{{ url('orders/search/invoice') }}" id="search">
             <thead>
                 <tr> 
-                    <th class="text-center"> رقم الطلبيه</th>
+                    <th class="text-center"> رقم الفاتوره</th>
                     <th class="text-center"> رقم الدفتر</th>
-                    <th class="text-center"> تاريخ الطلبية</th>
-                    <th class="text-center"> مستلم الطلبية</th>
+                    <th class="text-center"> تاريخ الفاتوره</th>
+                    <th class="text-center"> مستلم الفاتوره</th>
                     <th class="text-center"> طريقه الدفع</th>
                     <th class="text-center"> العمليات</th>
                 </tr>

@@ -9,6 +9,8 @@ class Store extends Model
     //
 
     public function products(){
-        return $this->hasMany('App\Good','store');
+        return $this->hasMany('App\Good','store_id');
     }
+
+
 }

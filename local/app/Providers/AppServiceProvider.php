@@ -7,7 +7,7 @@ use App\Setting;
 use App\Order;
 use App\Msg;
 use App\Admin;
-use App\Employee;
+use App\Owner;
 use App\Store;
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         $orders = Order::get();
 
         $admin_num = Admin::count(); 
-        $emp_num = Employee::count(); 
+        $emp_num = Owner::count(); 
         $store_num = Store::count();
 
          view()->share(['sections'=>$sections , 'orders' =>$orders,'msgs'=>$msgs,'msg_num'=>$msg_num ,'order_num'=>$order_num ,'admin_num'=>$admin_num ,'emp_num'=>$emp_num ,'store_num'=>$store_num]);

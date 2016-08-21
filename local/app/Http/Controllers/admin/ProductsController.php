@@ -25,7 +25,7 @@ class ProductsController extends Controller {
         $product = Good::find($id);
         if ($product) {
             $product->image = url('uploads/products/' . $product->image);
-            $product->box_total = ($product->box_count) * ($product->box_items_count);
+            //$product->box_total = ($product->box_count) * ($product->box_items_count);
             $product->cat = $product->category->name;
             $product->sub_cat = $product->subCategory->name;
 
@@ -44,6 +44,7 @@ class ProductsController extends Controller {
         $product->code = $request->input('code');
         $product->name = $request->input('name');
         $product->points = $request->input('points');
+        $product->dmg_points = $request->input('dmg_points');
         $product->desc = $request->input('desc');
         $product->quantity = $request->input('quantity');
         $product->company = $request->input('company');
@@ -53,7 +54,7 @@ class ProductsController extends Controller {
         $product->box_items_count = $request->input('box_items_count');
         $product->sub_cat_id = $request->input('sub_cat_id');
         $product->cat_id = SubCategory::find($product->sub_cat_id)->category->id;
-        $product->store = $request->input('store');
+        $product->store_id = $request->input('store');
 
         //processing a the product avatar 
         $file = $request->file('image');
@@ -84,16 +85,17 @@ class ProductsController extends Controller {
         $product->code = $request->input('code');
         $product->name = $request->input('name');
         $product->points = $request->input('points');
+        $product->dmg_points = $request->input('dmg_points');
         $product->desc = $request->input('desc');
-        $product->quantity = $request->input('quantity');
         $product->company = $request->input('company');
         $product->b_price = $request->input('b_price');
         $product->s_price = $request->input('s_price');
         $product->box_count = $request->input('box_count');
         $product->box_items_count = $request->input('box_items_count');
+        $product->quantity = floatval($request->input('box_count')) * floatval($request->input('box_items_count'));
         $product->sub_cat_id = $request->input('sub_cat_id');
         $product->cat_id = SubCategory::find($product->sub_cat_id)->category->id;
-        $product->store = $request->input('store');
+        $product->store_id = $request->input('store');
 
         $file = $request->file('image');
         if ($file) {

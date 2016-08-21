@@ -92,9 +92,9 @@
                             </div>
                         </div>
                         <div class="col-md-4 text-left">
-                            <div class="form-group" style="line-height: 85px;">
-                                = <span id="box-total">0</span>&nbsp;قطعه
-                            </div>
+                                <div class="form-group" style="line-height: 85px;">
+                                    = <span id="box-total" min=0 ></span>&nbsp;قطعه
+                                </div>
                         </div>
                     </div> 
                     <div class="row">
@@ -106,24 +106,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">الكمية</label>
-                                <input type="number" id="quantity" name="quantity" class="form-control " >
+                                <label class="control-label">الصورة</label>
+                                <input type="file" id="image" name="image"  class="form-control " >
                             </div>
                         </div>
                     </div>  
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-9">
                             <div class="form-group">
                                 <label class="control-label">الوصف</label>
                                 <textarea id="desc" name="desc"  class="form-control " ></textarea>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">الصورة</label>
-                                <input type="file" id="image" name="image"  class="form-control " >
-                            </div>
-                        </div>
+                        
                     </div>  
 
                 </div>

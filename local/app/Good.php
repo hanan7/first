@@ -31,7 +31,7 @@ class Good extends Model
     }
 
     public function _store(){
-        return $this->belongsTo('App\Store','store');
+        return $this->belongsTo('App\Store','store_id');
     }
 
     public function subCategory()

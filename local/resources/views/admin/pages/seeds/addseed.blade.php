@@ -29,12 +29,18 @@
                                 </div>  
                                     
                                 <div class="row" style="margin-left:40px;">
-                                  <div class="col-md-6">
+                                    <div class="col-md-4">
                                       <div class="form-group">
                                         <label class="control-label">معدل الاهلاك السنوى</label>
-                                        <input type="text" id="cons_rate" name="cons_rate"  class="form-control " >
+                                        <div class="input-group">
+                                            <input type="text" id="cons_rate" name="cons_rate"  class="form-control ">
+                                            <span class="input-group-addon">
+                                           <i>%</i>   
+                                        </span>
+                                        </div>
                                       </div>
-                                  </div>
+                                    </div>  
+                                   
                                 </div> 
 
           

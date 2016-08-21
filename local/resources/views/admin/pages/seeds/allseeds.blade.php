@@ -85,7 +85,7 @@
          <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
             <thead>
               <tr>
-                <th class="text-center"> الاصل </th>
+                <th class="text-center col-md-6" > الاصل </th>
                 <th class="text-center"> القيمة</th>
                 <th class="text-center"> معدل الاهلاك السنوى </th>
                 <th class="text-center">العمليات</th>

@@ -7,7 +7,7 @@
 Route::get('admin/load/{id}', 'admin\DashboardController@Load');
 Route::post('admin/add', 'admin\DashboardController@addOrder');
 Route::group(['middleware' => ['web']], function () {
-    
+     Route::get('admin','admin\AdminController@login');
      Route::controller('admin','admin\AdminController');
    //Route::controller('adminpanel','admin\DashboardController');
 

@@ -52,11 +52,12 @@
     
     </div>
  @endif
-
-    <a  href="#store" data-toggle="modal" class="btn btn blue" >
+  
+    <!--<a  href="#store" data-toggle="modal" class="btn btn blue" >
     <i class="fa fa-plus"></i>  اضافة عمليه بيع
-</a>
-    <div class="row">
+
+</a> -->
+<div class="row">
 
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <a class="dashboard-stat dashboard-stat-light blue-soft" href="{{url('users/all-users')}}">
@@ -73,6 +74,7 @@
         </div>
         </a>
     </div>
+
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <a class="dashboard-stat dashboard-stat-light red-soft" href="{{url('admin/member/view-all')}}">
         <div class="visual">
@@ -88,8 +90,9 @@
         </div>
         </a>
     </div>
+
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-light green-soft" href="{{url('admin/course/view-all')}}">
+        <a class="dashboard-stat dashboard-stat-light green-soft" href="{{url('admin/owners/all-owners')}}">
         <div class="visual">
             <i class="fa fa-users"></i>
         </div>
@@ -98,11 +101,12 @@
                {{$emp_num}}
             </div>
             <div class="desc">
-                عدد الموظفين
+                عدد المساهمين
             </div>
         </div>
         </a>
     </div>
+
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <a class="dashboard-stat dashboard-stat-light purple-soft" href="{{url('admin/team-work/view-all')}}">
         <div class="visual">
@@ -121,6 +125,21 @@
 </div> 
                 
 <div class="clearfix">
+</div>
+<div class="row" style="margin-right:470px ; margin-top:100px; " >
+    <div class="col-md-6  col-sm-6 col-xs-12">
+        <a href="#store" data-toggle="modal" class="btn btn green-soft" >
+        <div class="visual">
+             <i class="fa fa-plus"></i>
+        </div>
+        <div class="details">
+           
+            <div class="desc">
+                اضافة عمليه بيع جديدة
+            </div>
+        </div>
+        </a>
+    </div>
 </div>
 
 @endsection
@@ -158,7 +177,7 @@
                                   <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">المخزن</label>
-                                        @if(count($stores)>0)
+                                        @if(count($store_num)>0)
                                         <select  name="store_id"  class="form-control stores " >
                                             @foreach($stores as $s)
                                             <option value="{{$s->id}}">{{$s->name}}</option>
@@ -296,7 +315,7 @@ $('.stores').change(function(){
     var options = '';
 
     $.ajax({
-        url: "http://localhost/first/admin/load/"+id,
+        url: "http://localhost/sohil/admin/load/"+id,
         type:"GET",
         success:function(res){
            if(res['response']!='0')

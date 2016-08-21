@@ -74,17 +74,22 @@ $a = session()->pull('danger');
     <div class="portlet-body" >
         <div class="table-toolbar">
             <div class="row">
+            @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
                 <div class="col-md-6">
-                    <div class="btn-group">
-                        @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
+               
+                        
                         <a href="#addmodal" class="btn btn blue"  data-toggle="modal"><i class="fa fa-plus"></i>  اضافة منتج
                         </a>
-                        <a href="#cat-modal" class="btn btn green"  data-toggle="modal"><i class="fa fa-plus"></i>  اضافة صنف
+                </div>        
+                <div class="col-md-6" > 
+                    <div class="btn-group pull-right">      
+                        <a href="#cat-modal" class="btn btn blue"  data-toggle="modal" 
+                        style="margin-right:500px;"><i class="fa fa-plus"></i>  اضافة فئة جديدة
                         </a>
-                        @endif
+                        
                     </div>
                 </div>
-
+            @endif
             </div>
         </div>  
 
@@ -92,15 +97,16 @@ $a = session()->pull('danger');
         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
             <thead>
                 <tr>
-                    <th class="text-center"> كود المنتج </th>
+                    <th class="text-center"> الكود</th>
                     <th class="text-center"> اسم المنتج</th>
                     <th class="text-center"> نقاط مبيعات</th>
+                    <th class="text-center"> نقاط المرتجع</th>
                     <th class="text-center"> سعر البيع </th>
                     <th class="text-center"> الصورة</th>
                     @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
                     <th class="text-center"> الكمية</th>
                     <th class="text-center"> سعر الشراء </th>
-                    <th class="text-center"> الشركة الموردة</th>
+                    
                     <th class="text-center"> المخزن</th>
                     <th class="text-center">العمليات</th>
                     @endif
@@ -114,13 +120,14 @@ $a = session()->pull('danger');
                     <td class="text-center"> {{ $pro->code }}</td>
                     <td class="text-center"> {{ $pro->name }} </td>
                     <td class="text-center"> {{ $pro->points }} </td>
+                    <td class="text-center"> {{ $pro->dmg_points }} </td>
                     <td class="text-center"> {{ $pro->s_price }} </td>
                     <td class="text-center"> <img src="{{url('uploads/products/'.$pro->image)  }}" style="width:100px; height:100px; "/></td>
                     @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
                     <td class="text-center"> {{ $pro->quantity }} </td>
                     <td class="text-center"> {{ $pro->b_price }} </td>
-                    <td class="text-center"> {{ $pro->company}}</td>
-                    <td class="text-center"> {{ $pro->store}}</td>
+               
+                    <td class="text-center"> {{ $pro->_store->name}}</td>
                     <td class="text-center">
                         @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
                         <a href="{{URL('products/'.'edit/'.$pro->id)}}"  class="btn green btnedit" data-original="">
@@ -129,7 +136,8 @@ $a = session()->pull('danger');
                         <a data-url="{{URL('products/'.'delete/'.$pro->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
-                        <button type="button" class="btn-details btn btn-dafault" data-product-id="{{$pro->id }}" >تفاصيل</button>
+                        <button type="button" class="btn-details btn yellow" data-product-id="{{$pro->id }}" >
+                         <li class="fa fa-eye">  تفاصيل</button>
                         @endif
                     </td>
                     @endif  

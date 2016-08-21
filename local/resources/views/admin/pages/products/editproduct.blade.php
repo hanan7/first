@@ -112,13 +112,6 @@
                                                    value="{{$old->dmg_points}}">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label">الكمية</label>
-                                            <input type="number" id="quantity" name="quantity" min="0"
-                                                   class="form-control " value="{{$old->quantity}}">
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -139,7 +132,7 @@
                                     </div>
                                     <div class="col-md-4 text-left">
                                         <div class="form-group" style="line-height: 85px;">
-                                            = <span id="box-total">{{$old->box_total }}</span>&nbsp;قطعه
+                                            = <span id="box-total">{{$old->quantity }}</span>&nbsp;قطعه
                                         </div>
                                     </div>
                                 </div>

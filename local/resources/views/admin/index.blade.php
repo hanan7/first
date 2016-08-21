@@ -220,7 +220,7 @@
                                   <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">نوع المشترى</label>
-                                        <select    class=" type form-control " >
+                                        <select  name="saler_type"  class=" type form-control " >
 
                                             <option value="0">وكيل فرعى</option>
                                             <option value="1">عميل نهائى</option>
@@ -360,8 +360,8 @@ $('#products').change(function(){
 
 $('#quantity').focusout(function(){
 
-
-
+//check quantity 
+//inproccess
 
 })
 

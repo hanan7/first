@@ -18,7 +18,8 @@ $(function () {
     });
 
     $('#box-count,#box-items-count').on('change', function () {
-        $('#box-total').text(Number(box_count.val()) * Number(box_items_count.val()));
+        var tot = Number(box_count.val()) * Number(box_items_count.val());
+        $('#box-total').text(tot);
     });
 
     var btnDetails = $(".btn-details");

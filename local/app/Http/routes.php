@@ -3,14 +3,21 @@ use App\Good;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 
+
+
+////////////////////////////////////////// Admin Route /////////////////////////////////////////////////// 
+
+Route::get('admin/load/{id}', 'admin\DashboardController@Load');
+Route::post('admin/add', 'admin\DashboardController@addOrder');
 Route::group(['middleware' => ['web']], function () {
-    
+     Route::get('admin','admin\AdminController@login');
      Route::controller('admin','admin\AdminController');
    //Route::controller('adminpanel','admin\DashboardController');
 
   Route::group(['middleware' => ['admins']], function () {
       
       Route::resource('admin','admin\DashboardController');
+
       Route::controller('users','admin\UsersController');
       Route::controller('settings','admin\SettingsController');
       Route::controller('seeds','admin\SeedsController');
@@ -42,6 +49,9 @@ Route::group(['middleware' => ['web']], function () {
 ////////////////////////////////////////// Front Route /////////////////////////////////////////////////// \\
 
     Route::controller('/','front\HomeController');
+
+    //Route::get('/load', 'admin\DashboardController@getLoad');
+    Route::get('/admin', 'admin\DashboardController@index');
     
 
 

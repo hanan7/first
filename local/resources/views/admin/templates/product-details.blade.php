@@ -151,7 +151,7 @@
                         </div>
 
                         <div class="sectionContent">
-                            <p>{box_total}</p>
+                            <p>{quantity}</p>
                         </div>
                     </article>
                     <div class="clear"></div>

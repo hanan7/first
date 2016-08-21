@@ -71,9 +71,9 @@ class AdminController extends Controller {
                     return '<a href="' . url('products/edit/' . $d) . '"  class="btn green btnedit" data-original="">
                             <li class="fa fa-pencil"> تعديل</li>
                         </a>
-                        <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
-                            <li class="fa fa-trash">  مسح</li>
-                        </a>
+                         <a data-url="'.url('products/delete/'.$d).'" class="btn btn-danger btndelet"  >
+                          <li class="fa fa-trash">  مسح</li>
+                      </a>
                         <button type="button" class="btn-details btn btn-dafault" data-product-id="' . $d . '" >تفاصيل</button>';
                 }
             ),

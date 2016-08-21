@@ -89,7 +89,12 @@
                                   <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">معدل الاهلاك السنوى</label>
-                                        <input type="text" id="cons_rate" name="cons_rate"  class="form-control"  value="{{$old->cons_rate}}">
+                                        <div class="input-group">
+                                            <input type="text" id="cons_rate" name="cons_rate"  class="form-control " value="{{$old->cons_rate}}">
+                                            <span class="input-group-addon">
+                                           <i>%</i>   
+                                        </span>
+                                        </div>
                                       </div>
                                   </div>
                                 </div> 

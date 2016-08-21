@@ -74,17 +74,22 @@ $a = session()->pull('danger');
     <div class="portlet-body" >
         <div class="table-toolbar">
             <div class="row">
+            @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
                 <div class="col-md-6">
-                    <div class="btn-group">
-                        @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
+               
+                        
                         <a href="#addmodal" class="btn btn blue"  data-toggle="modal"><i class="fa fa-plus"></i>  اضافة منتج
                         </a>
-                        <a href="#cat-modal" class="btn btn green"  data-toggle="modal"><i class="fa fa-plus"></i>  اضافة صنف
+                </div>        
+                <div class="col-md-6" > 
+                    <div class="btn-group pull-right">      
+                        <a href="#cat-modal" class="btn btn blue"  data-toggle="modal" 
+                        style="margin-right:500px;"><i class="fa fa-plus"></i>  اضافة فئة جديدة
                         </a>
-                        @endif
+                        
                     </div>
                 </div>
-
+            @endif
             </div>
         </div>  
 
@@ -92,15 +97,16 @@ $a = session()->pull('danger');
         <table class="table table-striped table-bordered table-hover table-checkable order-column" data-url="{{ url('admin/search') }}" id="search">
             <thead>
                 <tr>
-                    <th class="text-center"> كود المنتج </th>
+                    <th class="text-center"> الكود</th>
                     <th class="text-center"> اسم المنتج</th>
                     <th class="text-center"> نقاط مبيعات</th>
+                    <th class="text-center"> نقاط المرتجع</th>
                     <th class="text-center"> سعر البيع </th>
                     <th class="text-center"> الصورة</th>
                     @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
                     <th class="text-center"> الكمية</th>
                     <th class="text-center"> سعر الشراء </th>
-                    <th class="text-center"> الشركة الموردة</th>
+                    
                     <th class="text-center"> المخزن</th>
                     <th class="text-center">العمليات</th>
                     @endif

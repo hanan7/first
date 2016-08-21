@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Setting;
 use App\Msg;
 use App\Admin;
-use App\Employee;
+use App\Owner;
 use App\Store;
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         $sections = Setting::find($id);
 
         $admin_num = Admin::count(); 
-        $emp_num = Employee::count(); 
+        $emp_num = Owner::count(); 
         $store_num = Store::count();
 
          view()->share(['sections'=>$sections ,'msgs'=>$msgs,'msg_num'=>$msg_num ,'admin_num'=>$admin_num ,'emp_num'=>$emp_num ,'store_num'=>$store_num]);

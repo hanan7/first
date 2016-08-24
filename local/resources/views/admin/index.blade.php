@@ -1,3 +1,14 @@
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+$.extend($.validator.messages, {
+    
+    max: ' {0} لابد ان تكون القيمه اقل من '
+});
+
+});
+</script>
 @extends('admin/master')
 
 @section('title')
@@ -192,7 +203,11 @@
                                         <label class="control-label"> الكمية ( بالقطعه )
                                           <span style="color:#f00" id="quan"></span>
                                         </label>
-                                        <input type="number"  required id="quantity" name="quantity" class="form-control " >
+                                        <input type="number" 
+                                          max=""
+                                         required id="quantity" 
+                                         name="quantity" 
+                                         class="form-control " >
                                       </div>
                                     </div>
                                 </div>  
@@ -273,6 +288,8 @@
 
 <script type="text/javascript">
 
+
+
 jQuery('.type').on('change',function(){
 
   var type=$(this).val();
@@ -335,6 +352,7 @@ $('#products').change(function(){
   
   var html ="الكميه الموجوه بالمخزن "+productQuantity;
   $('#quan').html(html)
+  $('#quantity').attr('max',productQuantity);
 })
 
 //check  product quantity  
@@ -345,5 +363,7 @@ $('#quantity').focusout(function(){
 //inproccess
 
 })
+
+
 
 </script>

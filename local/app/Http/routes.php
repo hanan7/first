@@ -4,6 +4,20 @@
 
 ////////////////////////////////////////// Admin Route /////////////////////////////////////////////////// 
 
+//new inventory 
+Route::get('admin/inventory', 'admin\NewInventoreyController@index');
+Route::get('admin/inventory/add', 'admin\NewInventoreyController@add');
+Route::get('admin/inventory/edit/{id}', 'admin\NewInventoreyController@edit');
+Route::get('admin/inventory/delete/{id}', 'admin\NewInventoreyController@delete');
+
+//Route::post('admin/inventory/add', 'admin\NewInventoreyController@add');
+Route::post('admin/inventory/loadProducts', 'admin\NewInventoreyController@loadProducts');
+Route::post('admin/inventory/addInventory', 'admin\NewInventoreyController@addInventory');
+Route::post('admin/inventory/editInventory/{id}', 'admin\NewInventoreyController@editInventory');
+
+
+
+
 Route::get('admin/load/{id}', 'admin\DashboardController@Load');
 Route::post('admin/add', 'admin\DashboardController@addOrder');
 Route::group(['middleware' => ['web']], function () {

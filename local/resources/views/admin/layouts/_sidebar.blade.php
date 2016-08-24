@@ -64,6 +64,16 @@
                         </li>
                         @endif
 
+                        @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1  )
+                        <li class="nav-item  ">
+                            <a href="{{URL('admin/inventory')}}" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">جرد</span>
+                            </a>
+                        </li>
+                        @endif
+
+
                         @if(Auth::guard('admins')->user()->flag==0)
                         <li class="nav-item  ">
                             <a href="{{URL('delegates/all-delegates')}}" class="nav-link nav-toggle">

@@ -133,7 +133,25 @@
                                       </div>
                                       
                                     </div>
-                                </div>     
+                                </div>  
+                            <div class="row">
+                          <div class="col-md-6">
+                          @if(!empty($stores))
+                          <div class="form-group">
+                            <label class="control-label">المخزن </label>
+                            <select 
+                            class="form-control select"
+                             name="stores_id[]" id="" multiple>
+                              
+                             @foreach($stores as $t)
+                             <option value="{{$t->id}}">{{$t->name}}</option>
+                             @endforeach
+                             </select>
+
+                            </div>
+                            @endif
+                        </div>
+                        </div>   
                                
     
       <div class="modal-footer">

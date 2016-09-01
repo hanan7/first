@@ -131,7 +131,7 @@ src="{{asset('assets/admin/dist/js/select2.full.min.js')}}" type="text/javascrip
                                         <label class="control-label"> المخزن</label>
   
                                         <select 
-                                        class="js-example-tags form-control load "
+                                        class=" js-example-tags form-control load "
                                          multiple="multiple"
                                          name="stores[]" id="storetype">
                                           

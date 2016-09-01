@@ -1,3 +1,5 @@
+
+
 <!-- Modal -->
 <div id="adddelegate" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -29,7 +31,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                 <div class="row">
                                   <div class="col-md-6">
                                       <div class="form-group">
                                         <label class="control-label">العنوان</label>
@@ -43,7 +45,45 @@
                                         <input type="number" id="phone" name="phone"  class="form-control " >
                                       </div>
                                   </div>
-                                </div>  
+                                </div>
+
+                              <!--new -->
+
+                   <div class="row">
+                    @if(!empty($delegates))
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="control-label">الوكلاء الرئسين </label>
+                             <select class=" form-control" name="parent_id" >
+
+                             @foreach($delegates as $t)
+                             <option value="{{$t->id}}">{{$t->name}}</option>
+                             @endforeach
+
+                             </select>
+
+                            </div>
+                        </div>
+                        @endif
+                        <div class="col-md-6">
+                          @if(!empty($stores))
+                          <div class="form-group">
+                            <label class="control-label">المخزن </label>
+                            <select 
+                            class="form-control select"
+                             name="stores_id[]" id="" multiple>
+                              
+                             @foreach($stores as $t)
+                             <option value="{{$t->id}}">{{$t->name}}</option>
+                             @endforeach
+                             </select>
+
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+
+                              <!--#new --> 
 
                                 <div class="row">
                                   <div class="col-md-6">
@@ -143,5 +183,6 @@
   </div>
 </div>
 <!-- endModal --> 
- 
+
+
  

@@ -30,6 +30,8 @@
         <link href="{{asset('assets/admin/layouts/layout2/css/themes/blue-rtl.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{asset('assets/admin/layouts/layout2/css/custom-rtl.min.css')}}" rel="stylesheet" type="text/css" />
 
+
+
         @yield('styles')
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /><style type="text/css">
@@ -103,11 +105,15 @@
     @yield('layoutscripts')
     <script src="{{asset('assets/admin/global/scripts/app.min.js')}}"
     type="text/javascript"></script>
+
+
+
     @yield('levelscripts')
     <!-- END THEME LAYOUT SCRIPTS -->
     <script src="{{asset('assets/admin/layouts/layout2/scripts/layout.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/admin/layouts/layout2/scripts/demo.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/admin/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
+
 
 
     <!-- Modal-Template -->
@@ -191,7 +197,13 @@ id = "delete" class = "btn btn red" >
         });
 
 
+
+
+
+
+
     </script>
+
 
 
 

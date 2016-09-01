@@ -8,17 +8,27 @@ use App\Http\Requests\DelegateRequest;
 use App\Http\Controllers\Controller;
 
 use App\sub_delegator;
+use App\Delegate;
+use App\Store;
 use Auth;
 
 class SubDelegatesController extends Controller
 {
  
     public function getAllDelegates(){
-    	$delegates =sub_delegator::where('delegate_type','1')->get();
-    	return view ('admin.pages.subdelegates.alldelegates' , compact('delegates'));
+
+        $delegates =Delegate::where('delegate_type','0')->get();
+    	$subdelegates =sub_delegator::where('delegate_type','1')->get();
+        $stores=Store::all();
+
+    	return view ('admin.pages.subdelegates.alldelegates' , compact('subdelegates',
+                                                                       'delegates',
+                                                                       'stores'
+                                                                       ));
     }
     
     public function getPoints(){
+
         $delegates = sub_delegator::where('admin_id',Auth::guard('admins')->user()->id)->get();
         return view ('admin.pages.subdelegates.points' , compact('delegates'));
     }
@@ -47,6 +57,10 @@ class SubDelegatesController extends Controller
         $delegate->admin_id=Auth::guard('admins')->user()->id;
          $delegate->main_point=$request->input('main_point');
          $delegate->delegate_type=1;
+         $delegate->parent_id=$request->input('parent_id');
+         $delegate->stores_id=json_encode($request->input('stores_id'));
+         
+         
         $delegate->save();
 
         session()->push('success','تمت الاضافة بنجاح');
@@ -56,7 +70,8 @@ class SubDelegatesController extends Controller
     
      public function getEdit($id){
      	$old = sub_delegator::find($id);
-     	return view ('admin.pages.subdelegates.editdelegate' , compact('old'));
+        $stores=Store::all();
+     	return view ('admin.pages.subdelegates.editdelegate' , compact('old','stores'));
 
     }
     public function postEdit(DelegateRequest $request , $id){
@@ -74,7 +89,9 @@ class SubDelegatesController extends Controller
         //$delegate->points=$request->input('points');
         $delegate->salary=$request->input('salary');
         $delegate->type=$request->input('type');
-          $delegate->main_point=$request->input('main_point');
+        $delegate->main_point=$request->input('main_point');
+        $delegate->parent_id=$request->input('parent_id');
+        $delegate->stores_id=json_encode($request->input('stores_id'));
 
         $delegate->save();
 

@@ -1,18 +1,19 @@
 <tr>   
-    <td class="text-center"> {code} </td>             
+    <td class="text-center"> {number} </td>             
+    <td class="text-center"> {note_book} </td>
+    <td class="text-center"> {date} </td>
     <td class="text-center"> {name} </td>
+    <td class="text-center"> {payment_method} </td>
 
     <td class="text-center">
-
-        @if(Auth::guard('admins')->user()->flag==0 )
+        <a href=" {{ url('orders/order') }}/{id}"  class="btn green btnedit" data-original="">
+            <li class="fa fa-pencil"> تفاصيل او تعديل</li>
+        </a>
         <a href="#deletemodal" data-toggle="modal" class="btn btn-danger btndelet"  >
             <li class="fa fa-trash">  مسح</li>
         </a>
-        @endif
-        @if(Auth::guard('admins')->user()->flag==0  || Auth::guard('admins')->user()->flag==1 || Auth::guard('admins')->user()->flag==4 )
-        <a  href="{{URL('orders/'.'invoice')}}/{id}" class="btn yellow" target="_blank">
-            <li class="fa fa-check"> الفاتورة</li>
+        <a class="btn blue btn-print" data-order-id="{id}">
+            <li class="fa fa-printer">  طباعه</li>
         </a>
-        @endif
     </td>
 </tr>

@@ -100,13 +100,22 @@ $a = session()->pull('danger');
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">البحث عن طريق <span class="caret"></span></button>
                                 <ul class="dropdown-menu filter-drop-down">
-                                    <li data-filter="code"><a href="#">الكود</a></li>
-                                    <li data-filter="name"><a href="#" >اسم الطلبيه</a></li>
-                                    <li role="separator" class="divider"></li>
+                                    <li data-filter="name"><a href="#">الاسم</a></li>
+                                    <li data-filter="number"><a href="#">رقم الطلبيه</a></li>
+                                    <li data-filter="note_book"><a href="#">رقم الدفتر</a></li>
+                                    <li data-filter="sub_total"><a href="#">الاجمالي</a></li>
+                                    <li data-filter="discount"><a href="#">الخصم</a></li>
+                                    <li data-filter="extra_money"><a href="#">الاضافي</a></li>
+                                    <li data-filter="paid_amount"><a href="#">المدفوع</a></li>
+                                    <li data-filter="paid_rest"><a href="#">الباقي</a></li>
+                                    <li data-filter="store" class="filter-other"><a href="#">المخزن</a></li>
+                                    <li data-filter="payment_method" class="filter-other"><a href="#">طريق الدفع</a></li>
+                                    <li data-filter="type" class="filter-other"><a href="#">نقدا ام اجل</a></li>
+                                    <li role="separator" class="divider"> اخري</li>
                                     <li data-filter="_all"><a href="#" >الكل</a></li>
                                 </ul>
                             </div><!-- /btn-group -->
-                            <input type="text" class="form-control" aria-label="..." name="query">
+                            <input type="text" class="form-control" id="search-query" aria-label="..." name="query">
                             <input type="hidden" id="filter-hidden" name="filter" value="_all">
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
@@ -117,18 +126,21 @@ $a = session()->pull('danger');
                             </a>
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>  
         <!--<table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">-->
         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample">
-             <thead>
-              <tr> 
-                <th class="text-center"> كود الطلبية</th>
-                <th class="text-center"> محتوى الطلبية</th>
-           
-                <th class="text-center"> العمليات</th>
-              </tr>
+            <thead>
+                <tr> 
+                    <th class="text-center"> رقم الطلبيه</th>
+                    <th class="text-center"> رقم الدفتر</th>
+                    <th class="text-center"> تاريخ الطلبية</th>
+                    <th class="text-center"> مستلم الطلبية</th>
+                    <th class="text-center"> طريقه الدفع</th>
+                    <th class="text-center"> العمليات</th>
+                </tr>
             </thead>
 
             <tbody>
@@ -145,7 +157,7 @@ $a = session()->pull('danger');
 <script src="{{asset('assets/admin/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <script id="product-details-template">
-        @include('admin.templates.product-details')
+                @include('admin.templates.product-details')
 </script>
 <script id="category-template">
             @include('admin.templates.category')

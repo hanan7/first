@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Classes\Format;
 use App\Good;
 use App\Http\Controllers\Controller;
-use App\Order;
+use App\Invoice;
+use App\Store;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function abort;
@@ -12,6 +14,33 @@ use function response;
 use function view;
 
 class ReportsController extends Controller {
+
+    private function formate($rows) {
+        $new_rows = [];
+        foreach ($rows as $row) {
+            $new_row = [];
+            foreach ($row as $k => $v) {
+                switch ($k) {
+                    case 'date' :
+                        $new_row[$k] = Format::arabicFormat(strtotime($v));
+                        break;
+                    case 'payment_method':
+                        if ($v === 'cheque') {
+                            $new_row[$k] = 'شيك';
+                        } else if ($v === 'cash') {
+                            $new_row[$k] = 'مدفوع نقدا';
+                        } else {
+                            $new_row[$k] = 'فيزا';
+                        }
+                        break;
+                    default :
+                        $new_row[$k] = $v;
+                }
+            }
+            $new_rows[] = $new_row;
+        }
+        return $new_rows;
+    }
 
     public function getPage($name) {
         switch ($name) {
@@ -24,6 +53,7 @@ class ReportsController extends Controller {
     }
 
     public function postExplore($name, Request $request) {
+
         $query = $request->input('query');
         $rows = $this->getRowsBetween($name, $request->input('from'), $request->input('to'));
         if (!empty($query)) {
@@ -47,17 +77,36 @@ class ReportsController extends Controller {
                 $rows = $rows->where($request->input('filter'), 'LIKE', "%{$query}%");
             }
         }
-        return response()->json($rows->get()->toArray());
+        return response()->json($this->formate($rows->get()->toArray()));
+    }
+
+    public function postFilter($name) {
+        $options = [];
+        switch ($name) {
+            case 'store':
+                foreach (Store::all() as $store) {
+                    $options[] = ['value' => $store->id, 'content' => $store->name];
+                }
+                break;
+            case 'payment_method':
+                $options[] = ['value' => 'visa', 'content' => 'فيزا'];
+                $options[] = ['value' => 'cash', 'content' => 'المدفوع نقدا'];
+                $options[] = ['value' => 'cheque', 'content' => 'شيك'];
+                break;
+            case 'type':
+                $options[] = ['value' => 'cash', 'content' => 'نقدي'];
+                $options[] = ['value' => 'later', 'content' => 'اجل'];
+                break;
+        }
+        return response()->json($options);
     }
 
     private function getColumnsNames($name) {
         switch ($name) {
             case 'products':
-                $o = new Good;
-                return $o->getTableColumns();
+                return (new Good)->getTableColumns();
             case 'orders':
-                $o = new Order;
-                return $o->getTableColumns();
+                return (new Invoice)->getTableColumns();
         }
         return [];
     }
@@ -67,7 +116,7 @@ class ReportsController extends Controller {
             case 'products':
                 return Good::whereBetween('created_at', [Carbon::parse($from), Carbon::parse($to)]);
             case 'orders':
-                return Order::whereBetween('created_at', [Carbon::parse($from), Carbon::parse($to)]);
+                return Invoice::whereBetween('date', [Carbon::parse($from), Carbon::parse($to)])->where('related_to', 'order');
         }
         abort(404);
     }

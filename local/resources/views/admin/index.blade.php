@@ -82,7 +82,7 @@
         </div>
         <div class="details">
             <div class="number">
-                  {{$order_num}}
+                  {{-- $order_num --}}
             </div>
             <div class="desc">
                  عدد الطلبيات

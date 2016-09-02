@@ -24,6 +24,10 @@ class Invoice extends Model
 
     public $timestamps= false;
 
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+    
     public function products(){
         return $this->belongsToMany('App\Good','invoice_product','invoice_id','product_id')->withPivot(
             'price',

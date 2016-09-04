@@ -86,6 +86,7 @@
                                       </div>
                                     </div>
                                 </div>  
+
                                 <div class="row">
                                   <div class="col-md-6">
                                       <div class="form-group">
@@ -102,7 +103,50 @@
                                         value="{{$old->phone}}" >
                                       </div>
                                   </div>
-                                </div>   
+                                </div> 
+                    <div class="row">
+                    @if(!empty($delegates))
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="control-label">الوكلاء الرئسين </label>
+                             <select class=" form-control" name="parent_id" >
+
+                             @foreach($delegates as $t)
+
+                             <option
+                              @if("{{$t->id}}"=="{{$old->parent_id}}")
+                                                    selected="selected" 
+                              @endif
+                              value="{{$t->id}}">{{$t->name}}</option>
+                             @endforeach
+
+                             </select>
+
+                            </div>
+                        </div>
+                        @endif
+                        <div class="col-md-6">
+                          @if(!empty($stores))
+                          <div class="form-group">
+                            <label class="control-label">المخزن </label>
+                            <select 
+                            class="form-control js-example-tags load "
+                             multiple="multiple"
+                             name="stores[]" id="storetype">
+                              
+                             @foreach($stores as $t)
+                             <option 
+                             @if("{{$t->id}}"=="{{$old->parent_id}}")
+                                                    selected="selected" 
+                              @endif
+                             value="{{$t->id}}">{{$t->name}}</option>
+                             @endforeach
+                             </select>
+
+                            </div>
+                            @endif
+                        </div>
+                    </div>  
                                 <div class="row">
                                   <div class="col-md-6">
                                       <div class="form-group">
@@ -188,7 +232,26 @@
                                      
                                       
                                     </div>
-                                </div> 
+                                </div>
+
+                                 <div class="row"> 
+                          <div class="col-md-6">
+                          @if(!empty($stores))
+                          <div class="form-group">
+                            <label class="control-label">المخزن </label>
+                            <select 
+                            class="form-control select"
+                             name="stores_id[]" id="" multiple>
+                              
+                             @foreach($stores as $t)
+                             <option value="{{$t->id}}">{{$t->name}}</option>
+                             @endforeach
+                             </select>
+
+                            </div>
+                            @endif
+                        </div>
+                        </div>  
                               
                             </div>  
                           <div class="form-actions">
@@ -206,3 +269,27 @@
     </div>
   </div>
 @endsection                     
+
+@section("layoutscripts")
+<script
+src="{{asset('assets/admin/taggable/js/jquery.taggable.min.js')}}" type="text/javascript">
+</script>
+<script type="text/javascript">
+$(".select").taggable({
+      allowOtherWords : true, // default is false
+      searchByValue : false, // default is false
+      autoCompleteSearch : true, // default is true
+      autoCompleteSmartDisplay : true // default is true
+    });
+
+var id=<?php echo($old->stores_id);?>;
+  console.log(typeof(id ));
+
+  $.each(id,function(index,value){
+     console.log(value);
+     $('.select option[value='+value+']').prop('selected',true);
+   });
+
+</script>
+
+@endsection  

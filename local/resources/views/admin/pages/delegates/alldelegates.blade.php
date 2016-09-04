@@ -7,7 +7,11 @@
 <link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" 
     rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />              
+
+<link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}"
+ rel="stylesheet" type="text/css" />   
+
+           
 @endsection
 @section("content-title")
  <h3 class="page-title">الوكلاء الرئسين</h3>  
@@ -121,7 +125,8 @@
                     <td class="text-center"> {{ $delegate->plus_point }} </td>
  
                     <td class="text-center">
-                      <a href="{{URL('delegates/'.'edit/'.$delegate->id)}}"  class="btn green btnedit" data-original="">
+                      <a href="{{URL('delegates/'.'edit/'.$delegate->id)}}" 
+                       class="btn green btnedit" data-original="">
                         <li class="fa fa-pencil"> تعديل</li>
                       </a>
                       @if(Auth::guard('admins')->user()->flag==0)
@@ -129,6 +134,9 @@
                       <a data-url="{{URL('delegates/'.'delete/'.$delegate->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
+                       <button data-id="{{$delegate->id}}"  class="btn btn blue displayStore" data-type="0" >
+                         عرض المخازن
+                     </button>
 
                       @endif
                     </td>
@@ -146,12 +154,33 @@
 </div>
 
  @include('admin.pages.delegates.adddelegate')
+
+ 
+ 
+ 
+
 @endsection
 
 @section("layoutscripts")
         ><script src="{{asset('assets/admin/global/scripts/datatable.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+<script
+src="{{asset('assets/admin/taggable/js/jquery.taggable.min.js')}}" type="text/javascript">
+</script>
+<script type="text/javascript">
+$(".select").taggable({
+      allowOtherWords : true, // default is false
+      searchByValue : false, // default is false
+      autoCompleteSearch : true, // default is true
+      autoCompleteSmartDisplay : true // default is true
+    });
+
+
+
+
+
+</script>
 
 @endsection
 

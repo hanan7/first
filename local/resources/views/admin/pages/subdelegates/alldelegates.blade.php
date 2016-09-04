@@ -1,13 +1,29 @@
 @extends("admin/master")
 
+
 @section("title")
 الوكلاء الفرعيين 
 @endsection
+
 @section("styles")
-<link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" 
-    rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />              
+<link 
+href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" 
+rel="stylesheet" type="text/css" />
+
+<link
+ href="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" 
+rel="stylesheet" type="text/css" />
+
+<link 
+href="{{asset('assets/admin/global/plugins/font-awesome/css/font-awesome.min.css')}}"
+ rel="stylesheet" type="text/css" />              
+
+
+<link  href="{{asset('assets/admin/taggable/css/taggable.min.css')}}"
+rel="stylesheet" 
+type="text/css" />
+
+
 @endsection
 @section("content-title")
  <h3 class="page-title">الوكلاء الفرعيين </h3>  
@@ -102,7 +118,7 @@
             </thead>
              
             <tbody>
-            @foreach($delegates as $delegate)
+            @foreach($subdelegates as $delegate)
               <tr>
 		    
                     <td class="text-center"> {{ $delegate->code }} </td>                   
@@ -123,6 +139,11 @@
                       <a data-url="{{URL('subDelegates/'.'delete/'.$delegate->id)}}" class="btn btn-danger btndelet"  >
                           <li class="fa fa-trash">  مسح</li>
                       </a>
+
+                      <button data-id="{{$delegate->id}}"  
+                        class="btn btn blue displayStore" data-type="1" >
+                         عرض المخازن
+                     </button>
                       @endif
                     </td>
               </tr>
@@ -131,7 +152,10 @@
         </table>
        
     </div> 
+
 </div>
+
+
 
 
 
@@ -139,15 +163,37 @@
 @endsection
 
 @section("layoutscripts")
-        ><script src="{{asset('assets/admin/global/scripts/datatable.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/admin/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+
+
+<script
+src="{{asset('assets/admin/taggable/js/jquery.taggable.min.js')}}" type="text/javascript">
+</script>
+
+<script type="text/javascript">
+$(".select").taggable({
+      allowOtherWords : true, // default is false
+      searchByValue : false, // default is false
+      autoCompleteSearch : true, // default is true
+      autoCompleteSmartDisplay : true // default is true
+    });</script>
+
+<script src="{{asset('assets/admin/global/scripts/datatable.js')}}" 
+type="text/javascript"></script>
+<script src="{{asset('assets/admin/global/plugins/datatables/datatables.min.js')}}"
+ type="text/javascript"></script>
+<script src="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" 
+type="text/javascript"></script>
+
+ 
+
 
 @endsection
 
 @section("levelscripts")
- <script src="{{asset('assets/admin/pages/scripts/table-datatables-managed.min.js')}}" type="text/javascript">
- 	
+ <script src="{{asset('assets/admin/pages/scripts/table-datatables-managed.min.js')}}" 
+ type="text/javascript">
  </script>
+
+ 
 @endsection
 

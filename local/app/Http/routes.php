@@ -1,4 +1,7 @@
 <?php
+use App\Good;
+use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Request;
 
 
 
@@ -30,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
       Route::controller('msgs','admin\MsgsController');
       Route::controller('delegates','admin\DelegatesController');
       Route::controller('subDelegates','admin\SubDelegatesController');
+      Route::controller('reports','admin\ReportsController');
       Route::get('/stores/inventory/{id}', 'admin\StoresController@inventory');
 
      // Route::get('/stores/allinventory/{id}', 'admin\StoresController@showInventory');

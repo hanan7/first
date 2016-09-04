@@ -18,9 +18,9 @@ class Good extends Model
         return $this->belongsTo('App\Category', 'cat_id');
     }
 
-    public function orders()
+    public function invoice()
     {
-        return $this->belongsToMany('App\Order', 'order_product', 'product_id', 'order_id')->withPivot(
+        return $this->belongsToMany('App\Invoice', 'invoice_product', 'product_id', 'invoice_id')->withPivot(
             'price',
             'total',
             'quantity',
@@ -30,6 +30,10 @@ class Good extends Model
 
     }
 
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+    
     public function _store(){
         return $this->belongsTo('App\Store','store_id');
     }

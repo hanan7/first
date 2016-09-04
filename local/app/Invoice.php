@@ -14,6 +14,7 @@ class Invoice extends Model
         'note_book',
         'payment_method',
         'sub_total',
+        'date',
         'extra_money',
         'discount',
         'paid_amount',
@@ -23,7 +24,17 @@ class Invoice extends Model
 
     public $timestamps= false;
 
-    public function order(){
-        return $this->belongsTo('App\Order','order_id');
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+    
+    public function products(){
+        return $this->belongsToMany('App\Good','invoice_product','invoice_id','product_id')->withPivot(
+            'price',
+            'total',
+            'quantity',
+            'code',
+            'unit'
+        );
     }
 }

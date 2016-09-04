@@ -226,7 +226,7 @@
                         </div>
 
                         <div class="sectionContent">
-                            <p>{store}</p>
+                            <p>{store_id}</p>
                         </div>
                     </article>
                     <div class="clear"></div>
@@ -255,9 +255,6 @@
                     </article>
                     <div class="clear"></div>
                 </section>
-
-
-
             </div>
         </div>
     </body>

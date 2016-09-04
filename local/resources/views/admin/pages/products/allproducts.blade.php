@@ -93,8 +93,8 @@ $a = session()->pull('danger');
             </div>
         </div>  
 
-
-        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+        <!--<table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">-->
+        <table class="table table-striped table-bordered table-hover table-checkable order-column" data-url="{{ url('admin/search') }}" id="search">
             <thead>
                 <tr>
                     <th class="text-center"> الكود</th>
@@ -114,35 +114,7 @@ $a = session()->pull('danger');
             </thead>
 
             <tbody>
-                @foreach($products as $pro)
-                <tr>
 
-                    <td class="text-center"> {{ $pro->code }}</td>
-                    <td class="text-center"> {{ $pro->name }} </td>
-                    <td class="text-center"> {{ $pro->points }} </td>
-                    <td class="text-center"> {{ $pro->dmg_points }} </td>
-                    <td class="text-center"> {{ $pro->s_price }} </td>
-                    <td class="text-center"> <img src="{{url('uploads/products/'.$pro->image)  }}" style="width:100px; height:100px; "/></td>
-                    @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
-                    <td class="text-center"> {{ $pro->quantity }} </td>
-                    <td class="text-center"> {{ $pro->b_price }} </td>
-               
-                    <td class="text-center"> {{ $pro->_store->name}}</td>
-                    <td class="text-center">
-                        @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
-                        <a href="{{URL('products/'.'edit/'.$pro->id)}}"  class="btn green btnedit" data-original="">
-                            <li class="fa fa-pencil"> تعديل</li>
-                        </a>
-                        <a data-url="{{URL('products/'.'delete/'.$pro->id)}}" class="btn btn-danger btndelet"  >
-                          <li class="fa fa-trash">  مسح</li>
-                      </a>
-                        <button type="button" class="btn-details btn yellow" data-product-id="{{$pro->id }}" >
-                         <li class="fa fa-eye">  تفاصيل</button>
-                        @endif
-                    </td>
-                    @endif  
-                </tr>
-                @endforeach 
             </tbody>
         </table>
 

@@ -1,0 +1,174 @@
+@extends("admin/master")
+
+@section("title")
+المنتجات
+@endsection
+@section("styles")
+<link href="{{asset('assets/admin/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/admin/style.css')}}" rel="stylesheet" type="text/css" />
+
+@endsection
+@section("content-title")
+<h3 class="page-title">المنتجات</h3>  
+@endsection
+
+@section("content-navigat")
+<ul class="page-breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <a href="{{url('/admin')}}">الصفحة الرئيسية</a>
+        <i class="fa fa-angle-left"></i>
+    </li>
+    <li>
+        <a href="#">المنتجات</a>
+
+
+    </li>
+
+</ul>
+@endsection
+
+@section('content')
+
+@if(isset($errors)&&count($errors)>0)
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
+        <li>
+            {{$error}}
+        </li>
+        @endforeach
+    </ul>
+</div>
+@endif
+@if(session()->has('success'))
+<?php
+$a = [];
+$a = session()->pull('success');
+?>
+<div class="alert alert-success alert-dismissable">
+    <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+    {{$a[0]}}
+
+</div>
+@endif
+@if(session()->has('danger'))
+<?php
+$a = [];
+$a = session()->pull('danger');
+?>
+<div class="alert alert-warning alert-dismissable">
+    <button class="close" data-dismiss="alert" area-hidden="true">&times;</button>
+    {{$a[0]}}
+
+</div>
+@endif
+
+<div class="portlet box blue ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-eye"></i> تقرير المنتجات</div>
+    </div>
+
+    @include('admin.pages.products.product-details')
+    @include('admin.pages.products.product-delete')
+    <script id="row-template">
+        @include('admin.pages.reports.templates.product-row')
+    </script>
+    <div class="portlet-body" >
+        <div class="table-toolbar">
+            <form class="report-form" onsubmit="return false;" action="{{ url('reports/explore/products') }}" method="POST">
+                {{ csrf_field() }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">من</label>
+                            <input type="date" name="from"  class="form-control " >
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">الي</label>
+                            <input type="date"  name="to" class="form-control " >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">البحث عن طريق <span class="caret"></span></button>
+                                <ul class="dropdown-menu filter-drop-down">
+                                    <li data-filter="code"><a href="#">الكود</a></li>
+                                    <li data-filter="name"><a href="#" >اسم المنتج</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li data-filter="s_price" ><a href="#" >سعر البيع</a></li>
+                                    <li data-filter="b_price" ><a href="#" >سعر الشراء</a></li>
+                                    <li data-filter="quantity"><a href="#" >الكميه</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li data-filter="company"><a href="#" >الشركه المورده</a></li>
+                                    <li data-filter="store"><a href="#" >المخزن</a></li>
+                                    <li data-filter="_all"><a href="#" >الكل</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control" aria-label="..." name="query">
+                            <input type="hidden" id="filter-hidden" name="filter" value="_all">
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                            <a href="#" class="report-submit btn btn green"><i class="fa fa-search"></i>  استكشاف
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>  
+        <!--<table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">-->
+        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample">
+            <thead>
+                <tr>
+                    <th class="text-center"> كود المنتج </th>
+                    <th class="text-center"> اسم المنتج</th>
+                    <th class="text-center"> نقاط مبيعات</th>
+                    <th class="text-center"> سعر البيع </th>
+                    <th class="text-center"> الصورة</th>
+                    @if(Auth::guard('admins')->user()->flag==0 || Auth::guard('admins')->user()->flag==1)
+                    <th class="text-center"> الكمية</th>
+                    <th class="text-center"> سعر الشراء </th>
+                    <th class="text-center"> الشركة الموردة</th>
+                    <th class="text-center"> المخزن</th>
+                    <th class="text-center">العمليات</th>
+                    @endif
+                </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div> 
+</div>
+
+@endsection
+@section("layoutscripts")
+<script src="{{asset('assets/admin/global/scripts/datatable.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/admin/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/admin/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+<script id="product-details-template">
+        @include('admin.templates.product-details')
+</script>
+<script id="category-template">
+            @include('admin.templates.category')
+</script>
+@endsection
+
+@section("levelscripts")
+<script src="{{asset('assets/admin/pages/scripts/table-datatables-managed.min.js')}}" type="text/javascript">
+
+</script>
+@endsection
+

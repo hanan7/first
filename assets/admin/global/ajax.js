@@ -26,7 +26,7 @@ $(function () {
     var productDetailsTemplate = $('#product-details-template').html();
     btnDetails.on('click', function () {
         var id = $(this).data('productId');
-        req(base_url + '/products/details/' + id, new FormData($('#details-form')[0]), function (data) {
+        request(base_url + '/products/details/' + id, new FormData($('#details-form')[0]), function (data) {
             if (data) {
                 var txt = productDetailsTemplate;
                 for (var key in data) {
@@ -76,7 +76,7 @@ $(function () {
         var $code = $row.find('.code');
         var $quantity = $row.find('.quantity');
         var id = $this.val();
-        req(base_url + '/products/details/' + id, new FormData($('#bill-form')[0]), function (data) {
+        request(base_url + '/products/details/' + id, new FormData($('#bill-form')[0]), function (data) {
             if (data) {
                 $code.val(data.code);
                 $price.val(data.s_price);
@@ -112,6 +112,86 @@ $(function () {
         $(this).closest('.row').remove();
     });
 
+    // dataTable Plugin Ajax
+    var table = $('#search').dataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": $('#search').data('url')
+    });
+
+    $('#search_filter input').attr('placeholder', 'Type + Press Enter').unbind();
+    $(document).on('keyup', '#search_filter input', function (e) {
+        if (e.keyCode == 13) {
+            table.fnFilter($(this).val());
+        }
+    });
+
+    /**
+     * Reports
+     */
+    var rowTemplate = $('#row-template').html();
+    $('.report-submit').on('click', function (evt) {
+        var form = $(this).closest('.report-form');
+        request(form.attr('action'), new FormData(form[0]), function (data) {
+            if (data) {
+                var tbody = ''
+                for (var report in data) {
+                    var txt = rowTemplate;
+                    for (var key in data[report]) {
+                        txt = txt.replace(new RegExp('{' + key + '}', 'g'), data[report][key]);
+                    }
+                    tbody += txt;
+                }
+                $('table tbody').html(tbody);
+            }
+        }, function () {
+            alert('Error');
+        });
+        evt.preventDefault();
+    });
+
+    var filterOptions = $(".filter-drop-down li");
+    var filterHidden = $('#filter-hidden');
+    filterOptions.on('click', function (ev) {
+        var $this = $(this);
+        var filterVal = $this.addClass('active').data('filter');
+        filterHidden.val(filterVal);
+        filterOptions.not(this).removeClass('active');
+
+        if ($this.hasClass('filter-other')) {
+            switch (filterVal) {
+                case 'store':
+                    buildFilter('store');
+                    break;
+                case 'payment_method':
+                    buildFilter('payment_method');
+                    break;
+                case 'type':
+                    buildFilter('type');
+                    break;
+            }
+        }else{
+            $('#search-query').replaceWith($('<input type="text" class="form-control" id="search-query" aria-label="..." name="query">'));
+        }
+        
+        ev.preventDefault();
+    });
+
+
+    function buildFilter(filter) {
+        request(base_url + '/reports/filter/' + filter, new FormData($('form.report-form')[0]), function (data) {
+            if (data) {
+                var options = '';
+                $.each(data, function (index, option) {
+                    options += '<option value="' + option.value + '">' + option.content + '</option>';
+                });
+
+                $('#search-query').replaceWith($('<select  class="form-control" id="search-query" name="query">' + options + '</select>'));
+            }
+        }, function () {
+            alert('Error');
+        });
+    }
     /**
      * Custom logging function
      * @param mixed data
@@ -130,7 +210,7 @@ $(function () {
      * @param callable progressHandler
      * @returns void
      */
-    function req(url, data, completeHandler, errorHandler, progressHandler) {
+    function request(url, data, completeHandler, errorHandler, progressHandler) {
         $.ajax({
             url: url, //server script to process data
             type: 'POST',

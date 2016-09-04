@@ -20,18 +20,18 @@
                             <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-bell"></i>
-                                    <span class="badge badge-default">{{$order_num}}</span>
+                                    <span class="badge badge-default">{{-- $order_num --}}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="external">
                                         <h3>لديك
-                                            <span class="bold"> {{$order_num}} </span>من الطلبيات</h3>
+                                            <span class="bold"> {{-- $order_num --}} </span>من الطلبيات</h3>
                                         <a href="{{url('orders/all-orders')}}">شاهد الكل</a>
                                     </li>
                                     <li>
                                         <div style="position: relative; overflow: hidden; width: auto; height: 250px;" class="slimScrollDiv">
                                             <ul data-initialized="1" class="dropdown-menu-list scroller" style="height: 250px; overflow: hidden; width: auto;" data-handle-color="#637283">
-                                            @foreach($orders as $order)
+                                        {{--    @foreach($orders as $order)
                                             @if($order->flag==1)
                                             <li>
                                                 <a href="javascript:;">
@@ -43,7 +43,7 @@
                                                 </a>
                                             </li>
                                              @endif
-                                            @endforeach
+                                            @endforeach --}}
                                            
                                         </ul><div style="background: rgb(99, 114, 131) none repeat scroll 0% 0%; width: 7px; position: absolute;
                                          top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; left: 1px;" class="slimScrollBar"></div><div style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; left: 1px;" class="slimScrollRail"></div></div>
